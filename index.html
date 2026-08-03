@@ -212,33 +212,38 @@
       </div>
 
       <div class="nav-icons">
-        <button class="btn-dash" onclick="openAboutModal()"><i class="fa-solid fa-circle-info"></i> ስለ እኛ</button>
+      <!-- 👇 የዴሊቨሪ ማውጫ እዚህ ጋር ገብቷል -->
+      <a href="delivery.html" class="btn-dash" style="display: inline-flex !important; align-items: center; gap: 5px; background-color: #10b981; color: white !important; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-weight: bold;">
+  <i class="fa-solid fa-truck"></i> 🚚 ዴሊቨሪ
+</a>
 
-        <button class="icon-btn" onclick="toggleDarkMode()" title="Dark/Light Mode">
-          <i class="fa-solid fa-moon" id="themeIcon"></i>
-        </button>
+      <button class="btn-dash" onclick="openAboutModal()"><i class="fa-solid fa-circle-info"></i> ስለ እኛ</button>
 
-        <button class="icon-btn" onclick="toggleDrawer('wishlistDrawer')">
-          <i class="fa-regular fa-heart"></i>
-          <span class="badge" id="wishlistCount">0</span>
-        </button>
-        <button class="icon-btn" onclick="toggleDrawer('cartDrawer')">
-          <i class="fa-solid fa-cart-shopping"></i>
-          <span class="badge" id="cartCount">0</span>
-        </button>
+      <button class="icon-btn" onclick="toggleDarkMode()" title="Dark/Light Mode">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+      </button>
 
-        <div id="guestNav">
-          <button class="btn-auth" onclick="openAuthModal('login')">ግባ</button>
-        </div>
-        <div id="userNav" class="user-profile">
-          <button class="btn-dash" onclick="navigateToDashboard()"><i class="fa-solid fa-gauge"></i> ዳሽቦርድ</button>
-          <span id="userRoleBadge" style="font-size:0.75rem; background: var(--primary); color: white; padding: 3px 10px; border-radius: 10px;"></span>
-          <button class="btn-auth" style="background: #ef4444;" onclick="handleLogout()">ውጣ</button>
-        </div>
+      <button class="icon-btn" onclick="toggleDrawer('wishlistDrawer')">
+        <i class="fa-regular fa-heart"></i>
+        <span class="badge" id="wishlistCount">0</span>
+      </button>
+      
+      <button class="icon-btn" onclick="toggleDrawer('cartDrawer')">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+
+      <div id="guestNav">
+        <button class="btn-auth" onclick="openAuthModal('login')">ግባ</button>
+      </div>
+      <div id="userNav" class="user-profile">
+        <button class="btn-dash" onclick="navigateToDashboard()"><i class="fa-solid fa-gauge"></i> ዳሽቦርድ</button>
+        <span id="userRoleBadge" style="font-size:0.75rem; background: var(--primary); color: white; padding: 3px 10px; border-radius: 10px;"></span>
+        <button class="btn-auth" style="background: #ef4444;" onclick="handleLogout()">ውጣ</button>
       </div>
     </div>
-  </header>
-
+  </div>
+</header>
   <!-- Main Content Area -->
   <main class="main-container">
     
