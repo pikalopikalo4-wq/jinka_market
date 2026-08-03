@@ -563,7 +563,11 @@
       <div id="receiptUploadBox" style="display: none; background: #fff3cd; padding: 15px; border-radius: 8px; border: 1px solid #ffeeba; margin-bottom: 20px;">
         <h4 style="margin-top: 0; color: #856404;">የከፈሉበትን ደረሰኝ/መረጃ ያስገቡ፦</h4>
         <div style="margin-bottom: 12px; display: grid; gap: 8px;">
-          <input type="text" id="transactionRef" placeholder="የትራንዛክሽን ቁጥር (Transaction Ref / FT No)">
+        <!-- የክፍያ ማረጋገጫ (ደረሰኝ) ማያያዣ -->
+<div id="receiptUploadSection" class="mt-4">
+  <label class="block text-sm font-semibold text-gray-700 mb-1">📄 የክፍያ ደረሰኝ ፎቶ (Screenshot) ያስገቡ</label>
+  <input type="file" id="receiptFile" accept="image/*,.pdf" class="w-full border rounded-2xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 outline-none"/>
+</div>
           <input type="text" id="customerName" placeholder="የደንበኛ ስም">
           <input type="text" id="customerPhone" placeholder="የደንበኛ ስልክ ቁጥር">
           <input type="email" id="customerEmail" placeholder="የደንበኛ ኢሜይል (ካለ)">
@@ -1290,6 +1294,59 @@ function toggleFAQ(element) {
         checkoutSec.scrollIntoView({ behavior: 'smooth' });
       }
     }
+    // ትእዛዝ ሲላክ የደረሰኝ ፎቶ/PDF ወደ ቴሌግራም የሚልክ ኮድ
+document.getElementById('checkoutForm')?.addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  const BOT_TOKEN = "8779386690:AAFrSyxbsheMNod0TVfiHHWaeLSihQ7MMKg";
+  const CHAT_ID = "801120038";
+
+  const name = document.getElementById('custName')?.value || '';
+  const phone = document.getElementById('custPhone')?.value || '';
+  const location = document.getElementById('custLocation')?.value || '';
+  const paymentMethod = document.getElementById('paymentMethod')?.value || 'Telebirr';
+  const totalAmount = document.getElementById('checkoutTotalAmount')?.innerText || '0';
+
+  // 1. የጽሁፍ መልእክቱን ወደ ቴሌግራም መላክ
+  const textMessage = `🛍️ *አዲስ ትእዛዝ ከ ጂንካ ገበያ!* 🛍️\n\n` +
+                      `👤 *ስም:* ${name}\n` +
+                      `📞 *ስልክ:* ${phone}\n` +
+                      `📍 *አድራሻ:* ${location}\n` +
+                      `💳 *የክፍያ ዘዴ:* ${paymentMethod}\n` +
+                      `💰 *ጠቅላላ ዋጋ:* ${totalAmount} ETB`;
+
+  try {
+    // ጽሁፉን መላክ
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: CHAT_ID, text: textMessage, parse_mode: 'Markdown' })
+    });
+
+    // 2. ደረሰኝ (Photo/PDF) ከተያያዘ ወደ ቴሌግራም መላክ
+    const receiptFile = document.getElementById('receiptFile')?.files[0];
+    
+    if (receiptFile && paymentMethod !== "Cash on Delivery") {
+      const fileData = new FormData();
+      fileData.append('chat_id', CHAT_ID);
+      fileData.append('caption', `📄 የክፍያ ደረሰኝ፦ ${name} (${totalAmount} ETB)`);
+
+      if (receiptFile.type === 'application/pdf') {
+        fileData.append('document', receiptFile);
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendDocument`, { method: 'POST', body: fileData });
+      } else {
+        fileData.append('photo', receiptFile);
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fileData });
+      }
+    }
+
+    alert('ትእዛዝዎ እና የክፍያ ደረሰኝዎ በስኬት ተልኳል! እናመሰግናለን።');
+    this.reset();
+  } catch (error) {
+    console.error("ትእዛዝ ሲላክ ስህተት ተፈጠረ:", error);
+    alert('ትእዛዙን መላክ አልተቻለም። እባክዎ እንደገና ይሞክሩ።');
+  }
+});
 
     function togglePaymentDetails(method) {
       currentPaymentMethod = method.toUpperCase();
@@ -1893,125 +1950,141 @@ function toggleFAQ(element) {
       pdf.save(`Jinka_Market_Receipt_${txnRef}.pdf`);
     }
 
-    // Dynamic Event Listeners Assignment
-    document.addEventListener("DOMContentLoaded", function() {
-      if (typeof fetchPromos === 'function') fetchPromos();
-      if (typeof fetchApprovedProducts === 'function') fetchApprovedProducts();
-      if (typeof loadCulturalProducts === 'function') loadCulturalProducts();
-      if (typeof fetchReels === 'function') fetchReels();
+   // Dynamic Event Listeners Assignment
+document.addEventListener("DOMContentLoaded", function() {
+  if (typeof fetchPromos === 'function') fetchPromos();
+  if (typeof fetchApprovedProducts === 'function') fetchApprovedProducts();
+  if (typeof loadCulturalProducts === 'function') loadCulturalProducts();
+  if (typeof fetchReels === 'function') fetchReels();
 
-      // Telegram Credentials
-      const TELEGRAM_BOT_TOKEN = '8779386690:AAFrSyxbsheMNod0TVfiHHWaeLSihQ7MMKg';
-      const TELEGRAM_CHAT_ID = '801120038';
+  // Telegram Credentials
+  const TELEGRAM_BOT_TOKEN = '8779386690:AAFrSyxbsheMNod0TVfiHHWaeLSihQ7MMKg';
+  const TELEGRAM_CHAT_ID = '801120038';
 
-      async function sendTelegramNotification(messageText) {
-        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-        try {
-          const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              chat_id: TELEGRAM_CHAT_ID,
-              text: messageText,
-              parse_mode: 'HTML'
-            })
-          });
-          if (response.ok) console.log("የቴሌግራም ማሳወቂያ ተልኳል!");
-        } catch (error) {
-          console.error("ቴሌግራም መላክ አልተቻለም፦", error);
-        }
+  // የቴሌብር/ካሽ መምረጫ ሲቀየር የደረሰኝ ማስገቢያውን Hide/Show ማድረጊያ
+  const paymentSelect = document.getElementById('paymentMethod');
+  const receiptSection = document.getElementById('receiptUploadSection');
+  if (paymentSelect && receiptSection) {
+    paymentSelect.addEventListener('change', function(e) {
+      if (e.target.value === 'Cash on Delivery') {
+        receiptSection.style.display = 'none'; // Cash ከሆነ ደረሰኝ አያስፈልግም
+      } else {
+        receiptSection.style.display = 'block'; // ባንክ ወይም ቴሌብር ከሆነ ይታያል
+      }
+    });
+  }
+
+  // Telegram Text Message Sending Function
+  async function sendTelegramNotification(messageText) {
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: messageText,
+          parse_mode: 'HTML'
+        })
+      });
+      if (response.ok) console.log("የቴሌግራም ማሳወቂያ ተልኳል!");
+    } catch (error) {
+      console.error("ቴሌግራም መላክ አልተቻለም፦", error);
+    }
+  }
+
+  // Seller Add Product Listener
+  const submitSellerProdBtn = document.getElementById("submitSellerProdBtn");
+  if (submitSellerProdBtn) {
+    submitSellerProdBtn.addEventListener("click", async function() {
+      const title = document.getElementById("sellerProdTitle").value.trim();
+      const price = parseFloat(document.getElementById("sellerProdPrice").value);
+      const category = document.getElementById("sellerProdCategory").value;
+      const imageUrl = document.getElementById("sellerProdImageUrl").value.trim();
+      const phone = document.getElementById("sellerPhone").value.trim();
+      const telegram = document.getElementById("sellerTelegram").value.trim();
+      const whatsapp = document.getElementById("sellerWhatsapp").value.trim();
+      const description = document.getElementById("sellerProdDesc").value.trim();
+
+      if (!title || isNaN(price) || !imageUrl) {
+        alert("እባክዎን የምርት ስም፣ ዋጋ እና የምስል URL ያስገቡ!");
+        return;
       }
 
-      // Seller Add Product Listener
-      const submitSellerProdBtn = document.getElementById("submitSellerProdBtn");
-      if (submitSellerProdBtn) {
-        submitSellerProdBtn.addEventListener("click", async function() {
-          const title = document.getElementById("sellerProdTitle").value.trim();
-          const price = parseFloat(document.getElementById("sellerProdPrice").value);
-          const category = document.getElementById("sellerProdCategory").value;
-          const imageUrl = document.getElementById("sellerProdImageUrl").value.trim();
-          const phone = document.getElementById("sellerPhone").value.trim();
-          const telegram = document.getElementById("sellerTelegram").value.trim();
-          const whatsapp = document.getElementById("sellerWhatsapp").value.trim();
-          const description = document.getElementById("sellerProdDesc").value.trim();
+      if (!Validator.isValidImageUrl(imageUrl)) {
+        alert("እባክዎን ትክክለኛ የምስል URL (http/https) ያስገቡ!");
+        return;
+      }
 
-          if (!title || isNaN(price) || !imageUrl) {
-            alert("እባክዎን የምርት ስም፣ ዋጋ እና የምስል URL ያስገቡ!");
-            return;
-          }
+      if (phone && !Validator.isValidEthiopianPhone(phone)) {
+        alert("እባክዎን ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ!");
+        return;
+      }
 
-          if (!Validator.isValidImageUrl(imageUrl)) {
-            alert("እባክዎን ትክክለኛ የምስል URL (http/https) ያስገቡ!");
-            return;
-          }
-
-          if (phone && !Validator.isValidEthiopianPhone(phone)) {
-            alert("እባክዎን ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ!");
-            return;
-          }
-
-          try {
-            await db.collection("products").add({
-              title: Validator.sanitizeInput(title),
-              price: price,
-              category: category,
-              imageUrl: imageUrl,
-              image: imageUrl,
-              sellerPhone: phone,
-              sellerTelegram: telegram,
-              sellerWhatsapp: whatsapp,
-              description: Validator.sanitizeInput(description),
-              status: "pending",
-              sellerId: currentUser ? currentUser.uid : "anonymous",
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-            alert("🎉 ምርቱ በተሳካ ሁኔታ ተመዝግቧል! በአድሚኑ ከጸደቀ በኋላ ለገዢዎች ይታያል።");
-            
-            document.getElementById("sellerProdTitle").value = "";
-            document.getElementById("sellerProdPrice").value = "";
-            document.getElementById("sellerProdImageUrl").value = "";
-            document.getElementById("sellerProdDesc").value = "";
-            loadSellerProducts();
-          } catch (e) {
-            console.error("Product add error: ", e);
-            alert("ምርቱን መመዝገብ አልተቻለም፦ " + e.message);
-          }
+      try {
+        await db.collection("products").add({
+          title: Validator.sanitizeInput(title),
+          price: price,
+          category: category,
+          imageUrl: imageUrl,
+          image: imageUrl,
+          sellerPhone: phone,
+          sellerTelegram: telegram,
+          sellerWhatsapp: whatsapp,
+          description: Validator.sanitizeInput(description),
+          status: "pending",
+          sellerId: currentUser ? currentUser.uid : "anonymous",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
+
+        alert("🎉 ምርቱ በተሳካ ሁኔታ ተመዝግቧል! በአድሚኑ ከጸደቀ በኋላ ለገዢዎች ይታያል።");
+        
+        document.getElementById("sellerProdTitle").value = "";
+        document.getElementById("sellerProdPrice").value = "";
+        document.getElementById("sellerProdImageUrl").value = "";
+        document.getElementById("sellerProdDesc").value = "";
+        loadSellerProducts();
+      } catch (e) {
+        console.error("Product add error: ", e);
+        alert("ምርቱን መመዝገብ አልተቻለም፦ " + e.message);
       }
+    });
+  }
 
-      // Receipt Send to Admin Listener
-      const sendToAdminBtn = document.getElementById("sendToAdminBtn");
-      if (sendToAdminBtn) {
-        sendToAdminBtn.addEventListener("click", async function() {
-          currentTxnRef = document.getElementById("transactionRef").value.trim() || 'ያልተገለፀ';
-          currentCustomerName = document.getElementById("customerName").value.trim() || 'ያልተገለፀ';
-          currentCustomerPhone = document.getElementById("customerPhone").value.trim() || 'ያልተገለፀ';
-          currentCustomerAddress = document.getElementById("customerAddress").value.trim() || 'ጂንካ';
-          const email = document.getElementById("customerEmail").value.trim();
-          const note = document.getElementById("customerNote").value.trim();
-          const manualUrl = document.getElementById("receiptImageUrl").value.trim();
+  // Receipt Send to Admin Listener (የፋይል/ፎቶ መላኪያ የተጨመረበት)
+  const sendToAdminBtn = document.getElementById("sendToAdminBtn");
+  if (sendToAdminBtn) {
+    sendToAdminBtn.addEventListener("click", async function() {
+      currentTxnRef = document.getElementById("transactionRef")?.value.trim() || 'ያልተገለፀ';
+      currentCustomerName = document.getElementById("customerName")?.value.trim() || 'ያልተገለፀ';
+      currentCustomerPhone = document.getElementById("customerPhone")?.value.trim() || 'ያልተገለፀ';
+      currentCustomerAddress = document.getElementById("customerAddress")?.value.trim() || 'ጂንካ';
+      const email = document.getElementById("customerEmail")?.value.trim() || '';
+      const note = document.getElementById("customerNote")?.value.trim() || '';
+      const manualUrl = document.getElementById("receiptImageUrl")?.value.trim() || '';
 
-          if (manualUrl) currentReceiptUrl = manualUrl;
-          const totalAmount = getCartTotal();
+      if (manualUrl) currentReceiptUrl = manualUrl;
+      const totalAmount = typeof getCartTotal === 'function' ? getCartTotal() : '0';
 
-          try {
-            await db.collection("orders").add({
-              userId: currentUser ? currentUser.uid : "guest",
-              customerName: Validator.sanitizeInput(currentCustomerName),
-              customerPhone: currentCustomerPhone,
-              customerEmail: email,
-              customerAddress: Validator.sanitizeInput(currentCustomerAddress),
-              customerNote: Validator.sanitizeInput(note),
-              transactionRef: currentTxnRef,
-              receiptUrl: currentReceiptUrl,
-              totalAmount: totalAmount,
-              paymentMethod: currentPaymentMethod,
-              status: "Pending Verification",
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
+      try {
+        // 1. መረጃውን በ Database (Firestore) ላይ መመዝገብ
+        await db.collection("orders").add({
+          userId: currentUser ? currentUser.uid : "guest",
+          customerName: Validator.sanitizeInput(currentCustomerName),
+          customerPhone: currentCustomerPhone,
+          customerEmail: email,
+          customerAddress: Validator.sanitizeInput(currentCustomerAddress),
+          customerNote: Validator.sanitizeInput(note),
+          transactionRef: currentTxnRef,
+          receiptUrl: currentReceiptUrl || '',
+          totalAmount: totalAmount,
+          paymentMethod: typeof currentPaymentMethod !== 'undefined' ? currentPaymentMethod : 'Telebirr',
+          status: "Pending Verification",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
 
-            const notificationMessage = `
+        // 2. የጽሁፍ መልእክቱን ወደ ቴሌግራም መላክ
+        const notificationMessage = `
 🚨 <b>አዲስ የክፍያ ደረሰኝ ደርሷል! (ጂንካ ገበያ)</b>
 
 👤 <b>ስም:</b> ${currentCustomerName}
@@ -2020,23 +2093,44 @@ function toggleFAQ(element) {
 🧾 <b>Transaction Ref:</b> ${currentTxnRef}
 💰 <b>የተከፈለው መጠን:</b> ${totalAmount} ETB
 `;
-            await sendTelegramNotification(notificationMessage);
+        await sendTelegramNotification(notificationMessage);
 
-            document.getElementById("receiptUploadBox").style.display = "none";
-            document.getElementById("downloadReceiptBox").style.display = "block";
-            cart = [];
-            updateCartUI();
-            
-            alert("የክፍያ ደረሰኝዎ እና ትዕዛዝዎ ለአድሚኑ ተልኳል!");
+        // 3. 📄 የደረሰኝ ፎቶ ወይም PDF ፋይል ካለ በቀጥታ ወደ ቴሌግራም መላክ
+        const receiptFileInput = document.getElementById('receiptFile');
+        const receiptFile = receiptFileInput ? receiptFileInput.files[0] : null;
 
-          } catch (e) {
-            console.error("Order submission error: ", e);
-            alert("ትዕዛዙን መላክ አልተቻለም፦ " + e.message);
+        if (receiptFile) {
+          const fileData = new FormData();
+          fileData.append('chat_id', TELEGRAM_CHAT_ID);
+          fileData.append('caption', `📄 የክፍያ ደረሰኝ ፎቶ፦ ${currentCustomerName} (${totalAmount} ETB)`);
+
+          if (receiptFile.type === 'application/pdf') {
+            fileData.append('document', receiptFile);
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendDocument`, { method: 'POST', body: fileData });
+          } else {
+            fileData.append('photo', receiptFile);
+            await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, { method: 'POST', body: fileData });
           }
-        });
+        }
+
+        // 4. ገጹን ማስተካከል እና Cart ማጽዳት
+        const uploadBox = document.getElementById("receiptUploadBox");
+        const downloadBox = document.getElementById("downloadReceiptBox");
+        if (uploadBox) uploadBox.style.display = "none";
+        if (downloadBox) downloadBox.style.display = "block";
+
+        cart = [];
+        if (typeof updateCartUI === 'function') updateCartUI();
+        
+        alert("የክፍያ ደረሰኝዎ እና ትዕዛዝዎ ለአድሚኑ ተልኳል!");
+
+      } catch (e) {
+        console.error("Order submission error: ", e);
+        alert("ትዕዛዙን መላክ አልተቻለም፦ " + e.message);
       }
     });
-
+  }
+});
     // PWA Service Worker Registration
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
