@@ -201,46 +201,63 @@
 <meta name="description" content="በጂንካ ገበያ (Jinka Market) ጥራት ያላቸውን ምርቶች ይግዙ፣ ይሸጡ። የሀገር ውስጥ እና የባህላዊ ምርቶች ስብስብ።">
 <meta name="keywords" content="Jinka Market, ጂንካ ገበያ, Jinka online shop, Jinka e-commerce, Ethiopia market">
 <meta name="robots" content="index, follow">
-  <!-- Navigation Bar -->
-  <header>
-    <div class="nav-container">
-      <div class="logo" onclick="switchView('storeView')">ጂንካ ገበያ</div>
-      
-      <div class="search-box">
-        <input type="text" id="searchInput" placeholder="ምርቶችን እዚህ ይፈልጉ..." onkeyup="filterProducts()">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </div>
+ <!-- Navigation Bar -->
+<header>
+  <div class="nav-container">
+    <div class="logo" onclick="switchView('storeView')">ጂንካ ገበያ</div>
+    
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="ምርቶችን እዚህ ይፈልጉ..." onkeyup="filterProducts()">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    
+    <div class="nav-icons">
+      <!-- 🏨 የቱሪዝም እና ሆቴሎች ማውጫ -->
+      <a href="tourism.html" class="btn-dash" style="display: inline-flex !important; align-items: center; gap: 6px; background-color: #059669; color: white !important; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-weight: bold;">
+        <i class="fa-solid fa-hotel"></i> ቱሪዝም እና ሆቴሎች
+      </a>
 
-      <div class="nav-icons">
-      <!-- 👇 የዴሊቨሪ ማውጫ እዚህ ጋር ገብቷል -->
-      <a href="delivery.html" class="btn-dash" style="display: inline-flex !important; align-items: center; gap: 5px; background-color: #10b981; color: white !important; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-weight: bold;">
-  <i class="fa-solid fa-truck"></i> 🚚 ዴሊቨሪ
-</a>
+      <!-- 🚚 የዴሊቨሪ ማውጫ -->
+      <a href="delivery.html" class="btn-dash" style="display: inline-flex !important; align-items: center; gap: 6px; background-color: #10b981; color: white !important; text-decoration: none; padding: 6px 12px; border-radius: 6px; font-weight: bold;">
+        <i class="fa-solid fa-truck-fast"></i> ዴሊቨሪ
+      </a>
 
-      <button class="btn-dash" onclick="openAboutModal()"><i class="fa-solid fa-circle-info"></i> ስለ እኛ</button>
+      <!-- ℹ️ ስለ እኛ -->
+      <button class="btn-dash" onclick="openAboutModal()">
+        <i class="fa-solid fa-circle-info"></i> ስለ እኛ
+      </button>
 
+      <!-- 🌙 Dark/Light Mode -->
       <button class="icon-btn" onclick="toggleDarkMode()" title="Dark/Light Mode">
         <i class="fa-solid fa-moon" id="themeIcon"></i>
       </button>
 
+      <!-- ❤️ Wishlist -->
       <button class="icon-btn" onclick="toggleDrawer('wishlistDrawer')">
         <i class="fa-regular fa-heart"></i>
         <span class="badge" id="wishlistCount">0</span>
       </button>
       
+      <!-- 🛒 Cart -->
       <button class="icon-btn" onclick="toggleDrawer('cartDrawer')">
         <i class="fa-solid fa-cart-shopping"></i>
         <span class="badge" id="cartCount">0</span>
       </button>
 
-      <div id="guestNav">
+      <!-- 👤 Guest Navigation -->
+      <div id="guestNav" style="display: inline-block;">
         <button class="btn-auth" onclick="openAuthModal('login')">ግባ</button>
       </div>
-      <div id="userNav" class="user-profile">
-        <button class="btn-dash" onclick="navigateToDashboard()"><i class="fa-solid fa-gauge"></i> ዳሽቦርድ</button>
+
+      <!-- 🔐 User Profile Navigation -->
+      <div id="userNav" class="user-profile" style="display: none;">
+        <button class="btn-dash" onclick="navigateToDashboard()">
+          <i class="fa-solid fa-gauge"></i> ዳሽቦርድ
+        </button>
         <span id="userRoleBadge" style="font-size:0.75rem; background: var(--primary); color: white; padding: 3px 10px; border-radius: 10px;"></span>
         <button class="btn-auth" style="background: #ef4444;" onclick="handleLogout()">ውጣ</button>
       </div>
+
     </div>
   </div>
 </header>
