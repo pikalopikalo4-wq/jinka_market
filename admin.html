@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ጂንካ ገበያ - አድሚን ዳሽቦርድ</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Firebase SDK Modules -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // ⚠️ ማስታወሻ፦ እዚህ ቦታ ላይ የእርስዎን የ Firebase Configuration ቁልፎች ይተኩ
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Firebase Initialize ማድረግ
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // DOM Elements
+    const loginSection = document.getElementById('loginSection');
+    const adminDashboard = document.getElementById('adminDashboard');
+    const loginForm = document.getElementById('loginForm');
+    const authError = document.getElementById('authError');
+    const userEmailDisplay = document.getElementById('userEmailDisplay');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // 1. የመግቢያ ህግጋትን መከታተል (Auth State Observer)
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // የተረጋገጠ አድሚን ከሆነ ዳሽቦርዱን አሳይ
+        loginSection.classList.add('hidden');
+        adminDashboard.classList.remove('hidden');
+        userEmailDisplay.textContent = user.email;
+      } else {
+        // ካልገባ የመግቢያ ፎርሙን አሳይ
+        loginSection.classList.remove('hidden');
+        adminDashboard.classList.add('hidden');
+      }
+    });
+
+    // 2. የአድሚን መግቢያ (Login Action)
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+      authError.classList.add('hidden');
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        loginForm.reset();
+      } catch (error) {
+        authError.textContent = "የተሳሳተ ኢሜይል ወይም ፓስወርድ አስገብተዋል!";
+        authError.classList.remove('hidden');
+      }
+    });
+
+    // 3. መውጫ (Logout Action)
+    logoutBtn.addEventListener('click', () => {
+      signOut(auth);
+    });
+
+    // 4. አዲስ ምርት ወደ Firebase ማስገባት (Add Product)
+    const productForm = document.getElementById('productForm');
+    const productMsg = document.getElementById('productMsg');
+
+    productForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      productMsg.classList.add('hidden');
+
+      const title = document.getElementById('prodTitle').value;
+      const price = parseFloat(document.getElementById('prodPrice').value);
+      const category = document.getElementById('prodCategory').value;
+      const imageUrl = document.getElementById('prodImage').value;
+      const description = document.getElementById('prodDesc').value;
+
+      try {
+        await addDoc(collection(db, "products"), {
+          title,
+          price,
+          category,
+          imageUrl,
+          description,
+          createdAt: serverTimestamp()
+        });
+
+        productMsg.textContent = "ምርቱ በስኬት ተመዝግቧል!";
+        productMsg.className = "p-3 bg-emerald-100 text-emerald-700 rounded-lg text-sm mb-4";
+        productForm.reset();
+      } catch (err) {
+        productMsg.textContent = "ምርቱን ለመመዝገብ ስህተት አጋጥሟል፦ " + err.message;
+        productMsg.className = "p-3 bg-red-100 text-red-700 rounded-lg text-sm mb-4";
+      }
+    });
+
+    // 5. አዲስ የቱሪዝም/ሆቴል መረጃ ወደ Firebase ማስገባት (Add Tourism)
+    const tourismForm = document.getElementById('tourismForm');
+    const tourismMsg = document.getElementById('tourismMsg');
+
+    tourismForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      tourismMsg.classList.add('hidden');
+
+      const name = document.getElementById('tourName').value;
+      const type = document.getElementById('tourType').value;
+      const location = document.getElementById('tourLocation').value;
+      const price = document.getElementById('tourPrice').value;
+      const phone = document.getElementById('tourPhone').value;
+      const telegram = document.getElementById('tourTelegram').value;
+      const whatsapp = document.getElementById('tourWhatsapp').value;
+      const imageUrl = document.getElementById('tourImage').value;
+
+      try {
+        await addDoc(collection(db, "tourism"), {
+          name,
+          type,
+          location,
+          price,
+          phone,
+          telegram,
+          whatsapp,
+          imageUrl,
+          createdAt: serverTimestamp()
+        });
+
+        tourismMsg.textContent = "የቱሪዝም መረጃው በስኬት ተመዝግቧል!";
+        tourismMsg.className = "p-3 bg-emerald-100 text-emerald-700 rounded-lg text-sm mb-4";
+        tourismForm.reset();
+      } catch (err) {
+        tourismMsg.textContent = "መረጃውን ለመመዝገብ ስህተት አጋጥሟል፦ " + err.message;
+        tourismMsg.className = "p-3 bg-red-100 text-red-700 rounded-lg text-sm mb-4";
+      }
+    });
+  </script>
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800">
+
+  <!-- ==================== SECTION 1: LOGIN FORM ==================== -->
+  <div id="loginSection" class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-gray-100">
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">ጂንካ ገበያ - አድሚን</h1>
+        <p class="text-gray-500 text-sm mt-1">ለመቀጠል እባክዎን መለያዎን ያስገቡ</p>
+      </div>
+
+      <div id="authError" class="hidden p-3 bg-red-100 text-red-700 rounded-lg text-sm mb-4 text-center"></div>
+
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">ኢሜይል</label>
+          <input type="email" id="adminEmail" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">ሚስጥር ቃል (Password)</label>
+          <input type="password" id="adminPassword" required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none">
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition">
+          ግባ <i class="fas fa-sign-in-alt ml-1"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== SECTION 2: ADMIN DASHBOARD ==================== -->
+  <div id="adminDashboard" class="hidden">
+    <!-- Top Navigation -->
+    <nav class="bg-slate-900 text-white px-6 py-4 flex justify-between items-center shadow-md">
+      <div class="flex items-center gap-3">
+        <span class="text-xl font-bold text-emerald-400">ጂንካ ገበያ አድሚን</span>
+      </div>
+      <div class="flex items-center gap-4 text-sm">
+        <span id="userEmailDisplay" class="text-gray-300"></span>
+        <button id="logoutBtn" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg transition">
+          <i class="fas fa-sign-out-alt"></i> ውጣ
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <div class="max-w-5xl mx-auto p-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- FORM 1: PRODUCT ENTRY -->
+        <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+          <h2 class="text-xl font-bold mb-4 text-gray-900 flex items-center gap-2">
+            <i class="fas fa-box text-emerald-600"></i> አዲስ ምርት መመዝገቢያ
+          </h2>
+          
+          <div id="productMsg" class="hidden"></div>
+
+          <form id="productForm" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">የምርት ስም</label>
+              <input type="text" id="prodTitle" required placeholder="ምሳሌ፦ የሀበሻ ቀሚስ" class="w-full px-3 py-2 border rounded-lg text-sm">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ዋጋ (ETB)</label>
+                <input type="number" id="prodPrice" required placeholder="1500" class="w-full px-3 py-2 border rounded-lg text-sm">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ካቴጎሪ</label>
+                <select id="prodCategory" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
+                  <option value="electronics">ኤሌክትሮኒክስ</option>
+                  <option value="clothing">ልብሶች</option>
+                  <option value="food">ምግቦች</option>
+                  <option value="other">ሌሎች</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">የምስል (Image) URL</label>
+              <input type="url" id="prodImage" required placeholder="https://example.com/image.jpg" class="w-full px-3 py-2 border rounded-lg text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">የምርት ማብራሪያ</label>
+              <textarea id="prodDesc" rows="3" placeholder="ስለ ምርቱ አጭር ማብራሪያ..." class="w-full px-3 py-2 border rounded-lg text-sm"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-lg transition text-sm">
+              ምርቱን መዝግብ <i class="fas fa-plus-circle ml-1"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- FORM 2: TOURISM / HOTEL ENTRY -->
+        <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-100">
+          <h2 class="text-xl font-bold mb-4 text-gray-900 flex items-center gap-2">
+            <i class="fas fa-hotel text-amber-600"></i> የቱሪዝም/ሆቴል መረጃ መመዝገቢያ
+          </h2>
+
+          <div id="tourismMsg" class="hidden"></div>
+
+          <form id="tourismForm" class="space-y-4">
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">የተቋሙ / አገልግሎቱ ስም</label>
+              <input type="text" id="tourName" required placeholder="ምሳሌ፦ ጂንካ ሪዞርት" class="w-full px-3 py-2 border rounded-lg text-sm">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">አይነት (Type)</label>
+                <select id="tourType" class="w-full px-3 py-2 border rounded-lg text-sm bg-white">
+                  <option value="ሆቴል">ሆቴል</option>
+                  <option value="የቱር ጋይድ">የቱር ጋይድ</option>
+                  <option value="የመኪና ኪራይ">የመኪና ኪራይ</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">አድራሻ/ቦታ</label>
+                <input type="text" id="tourLocation" required placeholder="ጂንካ ከተማ" class="w-full px-3 py-2 border rounded-lg text-sm">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">የአገልግሎት ታሪፍ / ዋጋ</label>
+              <input type="text" id="tourPrice" placeholder="ምሳሌ፦ 1,500 ETB / በሌሊት" class="w-full px-3 py-2 border rounded-lg text-sm">
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">ስልክ</label>
+                <input type="text" id="tourPhone" placeholder="+2519..." class="w-full px-3 py-2 border rounded-lg text-sm">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">Telegram</label>
+                <input type="text" id="tourTelegram" placeholder="https://t.me/..." class="w-full px-3 py-2 border rounded-lg text-sm">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">WhatsApp</label>
+                <input type="text" id="tourWhatsapp" placeholder="https://wa.me/..." class="w-full px-3 py-2 border rounded-lg text-sm">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 uppercase mb-1">የምስል (Image) URL</label>
+              <input type="url" id="tourImage" required placeholder="https://example.com/hotel.jpg" class="w-full px-3 py-2 border rounded-lg text-sm">
+            </div>
+            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 rounded-lg transition text-sm">
+              የቱሪዝም መረጃውን መዝግብ <i class="fas fa-plus-circle ml-1"></i>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
