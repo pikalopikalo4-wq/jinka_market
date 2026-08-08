@@ -190,11 +190,6 @@
     .support-card h3 { margin: 10px 0 5px; font-size: 18px; }
     .support-card p { font-size: 13px; color: var(--text-muted); margin-bottom: 12px; }
     .support-link-text { font-weight: bold; color: var(--primary); word-break: break-all; }
-    .faq-section h3 { text-align: center; margin-bottom: 20px; }
-    .faq-item { background: var(--bg-color); border-radius: 8px; margin-bottom: 10px; overflow: hidden; }
-    .faq-question { width: 100%; padding: 15px 20px; background: none; border: none; text-align: left; font-size: 16px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; cursor: pointer; color: var(--text-main); }
-    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; padding: 0 20px; }
-    .faq-answer p { padding: 15px 0; margin: 0; color: var(--text-muted); font-size: 14px; }
 
     footer { text-align: center; padding: 20px; background: var(--surface); margin-top: 40px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem; }
     footer a { color: var(--primary); text-decoration: none; margin: 0 5px; }
@@ -242,7 +237,7 @@
         </button>
 
         <div id="guestNav" style="display: inline-block;">
-          <button class="btn-auth" onclick="openAuthModal('login')">ሻጭ ከሆኑ የመዝገቡ ግባ</button>
+          <button class="btn-auth" onclick="openAuthModal('login')">ሻጭ ከሆኑ ይመዝገቡ/ይግቡ</button>
         </div>
 
         <div id="userNav" class="user-profile" style="display: none;">
@@ -266,7 +261,7 @@
           <div class="slide-content">
             <h2>ታላቅ የቅናሽ ሳምንት!</h2>
             <p>በጂንካ ገበያ እስከ 30% ቅናሽ ያግኙ</p>
-            <button onclick="filterCategory('sale')">አሁኑኑ ይግዙ</button>
+            <button onclick="filterCategory('sale', event)">አሁኑኑ ይግዙ</button>
           </div>
         </div>
         <div class="slider-dots" id="sliderDotsContainer">
@@ -287,10 +282,10 @@
           </div>
           
           <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px;">
-            <button onclick="filterCulturalProducts('all')" class="cultural-filter-btn active" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: #8B4513; color: white; cursor: pointer; font-size: 0.85rem;">ሁሉም</button>
-            <button onclick="filterCulturalProducts('clothes')" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">ባህላዊ አልባሳት</button>
-            <button onclick="filterCulturalProducts('crafts')" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">የእጅ ጥበብ / ቅርስ</button>
-            <button onclick="filterCulturalProducts('food')" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">የአካባቢ እህሎች እና ቡና</button>
+            <button onclick="filterCulturalProducts('all', event)" class="cultural-filter-btn active" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: #8B4513; color: white; cursor: pointer; font-size: 0.85rem;">ሁሉም</button>
+            <button onclick="filterCulturalProducts('clothes', event)" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">ባህላዊ አልባሳት</button>
+            <button onclick="filterCulturalProducts('crafts', event)" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">የእጅ ጥበብ / ቅርስ</button>
+            <button onclick="filterCulturalProducts('food', event)" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">የአካባቢ እህሎች እና ቡና</button>
           </div>
         </div>
 
@@ -467,12 +462,12 @@
 
         <h4 style="margin: 15px 0 10px 0; color: #2c3e50; font-size: 0.95rem;">📱 የሻጭ ማገናኛ መረጃዎች (ገዢዎች እንዲያናግሩህ)፦</h4>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 15px;">
-          <input type="tel" id="sellerPhone" placeholder="📞 የስልክ ቁጥር (ምሳሌ፦ 0912345678)" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-          <input type="text" id="sellerTelegram" placeholder="✈️ Telegram Username (ምሳሌ፦ @myusername)" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
-          <input type="tel" id="sellerWhatsapp" placeholder="💬 WhatsApp ቁጥር (ምሳሌ፦ 0912345678)" style="padding: 10px; border-radius: 6px; border: 1px solid #ccc;">
+          <input type="tel" id="sellerPhone" placeholder="📞 የስልክ ቁጥር (ምሳሌ፦ 0912345678)">
+          <input type="text" id="sellerTelegram" placeholder="✈️ Telegram Username (ምሳሌ፦ @myusername)">
+          <input type="tel" id="sellerWhatsapp" placeholder="💬 WhatsApp ቁጥር (ምሳሌ፦ 0912345678)">
         </div>
 
-        <textarea id="sellerProdDesc" placeholder="ስለ ምርቱ አጭር መግለጫ..." style="width: 100%; margin-bottom: 15px; padding: 10px; border-radius: 8px; border: 1px solid #ccc;"></textarea>
+        <textarea id="sellerProdDesc" placeholder="ስለ ምርቱ አጭር መግለጫ..." style="width: 100%; margin-bottom: 15px; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);"></textarea>
         <button type="button" id="submitSellerProdBtn" class="auth-btn" style="width: auto; padding: 10px 25px;">ምርት መዝግብ</button>
       </div>
 
@@ -513,35 +508,35 @@
     </section>
 
     <!-- 5. CHECKOUT SECTION -->
-    <div id="checkoutSection" class="panel-card" style="display: none; max-width: 600px; margin: 30px auto; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-      <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">የክፍያ ዘዴ ይምረጡ</h2>
+    <div id="checkoutSection" class="panel-card" style="display: none; max-width: 600px; margin: 30px auto; padding: 25px; border-radius: 12px; box-shadow: var(--shadow);">
+      <h2 style="text-align: center; color: var(--primary); margin-bottom: 20px;">የክፍያ ዘዴ ይምረጡ</h2>
       
-      <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
-        <span style="font-size: 16px; color: #555;">የሚከፈለዉ ጠቅላላ ዋጋ፦</span>
-        <h3 style="color: #27ae60; margin: 5px 0 0 0; font-size: 24px;" id="checkoutTotalAmount">0 ETB</h3>
+      <div style="background: var(--bg-color); padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+        <span style="font-size: 16px; color: var(--text-muted);">የሚከፈለዉ ጠቅላላ ዋጋ፦</span>
+        <h3 style="color: #10b981; margin: 5px 0 0 0; font-size: 24px;" id="checkoutTotalAmount">0 ETB</h3>
       </div>
 
       <div style="display: grid; gap: 10px; margin-bottom: 20px;">
-        <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;">
+        <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer;">
           <input type="radio" name="paymentMethodRadio" value="chapa" onclick="togglePaymentDetails('chapa')">
           <span>💳 Chapa (Telebirr, CBE Birr, Cards)</span>
         </label>
-        <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;">
+        <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer;">
           <input type="radio" name="paymentMethodRadio" value="telebirr" onclick="togglePaymentDetails('telebirr')">
           <span>📱 Telebirr (በቀጥታ)</span>
         </label>
-        <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;">
+        <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer;">
           <input type="radio" name="paymentMethodRadio" value="cod" onclick="togglePaymentDetails('cod')">
           <span>💵 ካሽ በመድረሻ (Cash on Delivery)</span>
         </label>
-        <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; cursor: pointer;">
+        <label style="display: flex; align-items: center; gap: 10px; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; cursor: pointer;">
           <input type="radio" name="paymentMethodRadio" value="bank" onclick="togglePaymentDetails('bank')">
           <span>🏦 ባንክ ማስተላለፊያ (Bank Transfer)</span>
         </label>
       </div>
 
       <!-- Chapa Form Box -->
-      <div id="chapaDetailsBox" style="display: none; background: #eef2ff; padding: 15px; border-radius: 8px; border-left: 5px solid #6366f1; margin-bottom: 20px;">
+      <div id="chapaDetailsBox" style="display: none; background: #eef2ff; padding: 15px; border-radius: 8px; border-left: 5px solid #6366f1; margin-bottom: 20px; color:#333;">
         <h4 style="margin-top: 0; color: #4338ca;">💳 በ Chapa ክፍያ መክፈያ፦</h4>
         <p style="margin: 5px 0 15px 0; font-size: 0.9rem;">በ Telebirr፣ በ CBE Birr ወይም በቪዛ ካርድ መክፈል ይችላሉ።</p>
 
@@ -564,16 +559,16 @@
       </div>
 
       <!-- Telebirr Details -->
-      <div id="telebirrDetailsBox" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #2ecc71; margin-bottom: 20px;">
+      <div id="telebirrDetailsBox" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #2ecc71; margin-bottom: 20px; color:#333;">
         <h4 style="margin-top: 0; color: #27ae60;">📱 የ Telebirr ክፍያ መረጃ፦</h4>
-        <p style="margin: 5px 0;"><b>የ Telebirr ቁጥር፦</b> 0974786103 (Amanuel Tito Shelo)</p>
+        <p style="margin: 5px 0;"><b>የ Telebirr ቁጥር፦</b> 0928664142 (Amanuel Tito Shelo)</p>
         <p style="margin: 5px 0;"><b>የነጋዴ መለያ (Merchant ID)፦</b> 12345678</p>
         <p style="margin: 5px 0;">እባክዎን ከ Telebirr ክፍያዎ በኋላ የክፍያውን ደረሰኝ ወደ አድሚኑ ለማስተላለፊያ ይጨምሩ።</p>
         <button type="button" class="auth-btn" style="margin-top: 15px; width: 100%; background: #27ae60;" onclick="showReceiptUploadForm()">የከፈሉበትን ደረሰኝ ለማስገባት እዝህ ጠቅ ያድርጉ!</button>
       </div>
 
       <!-- Bank Details -->
-      <div id="bankDetailsBox" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #2ecc71; margin-bottom: 20px;">
+      <div id="bankDetailsBox" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #2ecc71; margin-bottom: 20px; color:#333;">
         <h4 style="margin-top: 0; color: #27ae60;">🏦 የባንክ ማስተላለፊያ መረጃ፦</h4>
         <p style="margin: 5px 0;"><b>ባንክ ስም፦</b> Dashen Bank</p>
         <p style="margin: 5px 0;"><b>የነጋዴ ሂሳብ ቁጥር፦</b> 5081917396011 (Amanuel Tito Shelo)</p>
@@ -584,14 +579,14 @@
       </div>
 
       <!-- Cash on Delivery Details -->
-      <div id="codDetailsBox" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #2ecc71; margin-bottom: 20px;">
+      <div id="codDetailsBox" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #2ecc71; margin-bottom: 20px; color:#333;">
         <h4 style="margin-top: 0; color: #27ae60;">💵 ካሽ በመድረሻ መረጃ፦</h4>
         <p style="margin: 5px 0;">እባክዎን የክፍያውን ጠቅላላ ዋጋ በእቃው መድረሻ ላይ ይከፍሉ።</p>
         <button type="button" class="auth-btn" style="margin-top: 15px; width: 100%; background: #27ae60;" onclick="showReceiptUploadForm()">ትዕዛዝ አረጋግጥ</button>
       </div>
 
       <!-- Receipt Upload Form -->
-      <div id="receiptUploadBox" style="display: none; background: #fff3cd; padding: 15px; border-radius: 8px; border: 1px solid #ffeeba; margin-bottom: 20px;">
+      <div id="receiptUploadBox" style="display: none; background: #fff3cd; padding: 15px; border-radius: 8px; border: 1px solid #ffeeba; margin-bottom: 20px; color:#333;">
         <h4 style="margin-top: 0; color: #856404;">የከፈሉበትን ደረሰኝ/መረጃ ያስገቡ፦</h4>
         <div style="margin-bottom: 12px; display: grid; gap: 8px;">
           <input type="text" id="customerName" placeholder="የደንበኛ ስም">
@@ -617,7 +612,7 @@
       </div>
 
       <!-- Download Receipt Box -->
-      <div id="downloadReceiptBox" style="display: none; text-align: center; background: #d4edda; padding: 20px; border-radius: 8px; border: 1px solid #c3e6cb;">
+      <div id="downloadReceiptBox" style="display: none; text-align: center; background: #d4edda; padding: 20px; border-radius: 8px; border: 1px solid #c3e6cb; color:#333;">
         <h3 style="color: #155724; margin-top: 0;">🎉 ክፍያዎ ለአድሚን ተልኳል!</h3>
         <button type="button" onclick="downloadPDFReceipt()" class="auth-btn" style="background: #2980b9; width: 100%; margin-top: 10px;">📄 ደረሰኝ በ PDF አውርድ</button>
       </div>
@@ -630,11 +625,11 @@
         <p class="support-subtitle">ጥያቄ፣ አስተያየት ወይም ችግር ካጋጠመዎት በማንኛውም ጊዜ ያናግሩን!</p>
 
         <div class="support-cards">
-          <a href="tel:+251928664142/0928514142" class="support-card">
+          <a href="tel:+251928664142" class="support-card">
             <div class="support-icon">📞</div>
             <h3>በስልክ ይደውሉልን</h3>
             <p>ቀጥታ መስመር (Full Time)</p>
-            <span class="support-link-text">+251 928 664 142/0928514142</span>
+            <span class="support-link-text">+251 928 664 142</span>
           </a>
 
           <a href="https://t.me/jinka_market_bot" target="_blank" class="support-card telegram">
@@ -787,7 +782,7 @@
 
   <!-- Contact Seller Modal -->
   <div id="contactModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center; padding: 15px;">
-    <div style="background: white; border-radius: 16px; max-width: 400px; width: 100%; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative;">
+    <div style="background: white; border-radius: 16px; max-width: 400px; width: 100%; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); position: relative; color:#333;">
       <button onclick="closeContactModal()" style="position: absolute; top: 15px; right: 15px; background: #eee; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-weight: bold; font-size: 16px;">✕</button>
 
       <h3 style="margin-top: 0; color: #2c3e50; font-size: 1.2rem; text-align: center;">ለሻጩ ይደውሉ / ይዘዙ</h3>
@@ -928,7 +923,7 @@
               <div class="slide-content">
                 <h2>${p.title}</h2>
                 <p>${p.subtitle || ''}</p>
-                <button onclick="filterCategory('sale')">አሁኑኑ ይግዙ</button>
+                <button onclick="filterCategory('sale', event)">አሁኑኑ ይግዙ</button>
               </div>
             </div>`;
           dots.innerHTML += `<span class="dot ${idx===0?'active':''}" onclick="setSlide(${idx})"></span>`;
@@ -1011,7 +1006,7 @@
     function filterCategory(cat, e) {
       activeCategory = cat;
       document.querySelectorAll('.cat-chip').forEach(btn => btn.classList.remove('active'));
-      if (e) e.target.classList.add('active');
+      if (e && e.target) e.target.classList.add('active');
       filterProducts();
     }
 
@@ -1052,7 +1047,7 @@
       db.collection("products").doc(selectedProductId).collection("reviews").add({
         userEmail: currentUser.email,
         rating: selectedRating,
-        comment: comment,
+        comment: Validator.sanitizeInput(comment),
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(() => {
         alert("አስተያየትዎ ተመዝግቧል!");
@@ -1208,7 +1203,6 @@
       }, 0);
     }
 
-    /* በትክክል የሰለጠነ እና የተስተካከለ ትዕዛዝ መላኪያ ፈንክሽን */
     async function sendOrderToAdmin() {
       const nameInput = document.getElementById('customerName');
       const phoneInput = document.getElementById('customerPhone');
@@ -1229,6 +1223,11 @@
         return;
       }
 
+      if(!Validator.isValidEthiopianPhone(phone)) {
+        alert("እባክዎን ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ!");
+        return;
+      }
+
       const sendBtn = document.getElementById('sendToAdminBtn');
       if (sendBtn) {
         sendBtn.disabled = true;
@@ -1245,11 +1244,11 @@
       try {
         await db.collection("orders").add({
           transactionRef: currentTxnRef,
-          customerName: name,
+          customerName: Validator.sanitizeInput(name),
           customerPhone: phone,
           customerEmail: email || (currentUser ? currentUser.email : 'Guest'),
-          customerAddress: currentCustomerAddress,
-          note: note,
+          customerAddress: Validator.sanitizeInput(currentCustomerAddress),
+          note: Validator.sanitizeInput(note),
           paymentMethod: currentPaymentMethod,
           totalAmount: getCartTotal(),
           cartItems: cart,
@@ -1279,7 +1278,6 @@
       }
     }
 
-    /* አዲስ የሻጭ ምርት መመዝገቢያ ፈንክሽን */
     async function addSellerProduct() {
       const title = document.getElementById('sellerProdTitle').value.trim();
       const price = parseFloat(document.getElementById('sellerProdPrice').value);
@@ -1436,11 +1434,11 @@
             : `<span style="background: #f39c12; color: white; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; display: inline-block;">የሚጠበቅ (Pending)</span>`;
 
           tableBody.innerHTML += `
-            <tr style="border-bottom: 1px solid #eee; text-align: middle;">
+            <tr style="border-bottom: 1px solid var(--border-color); text-align: middle;">
               <td style="padding: 8px; width: 70px; text-align: center;">
-                <img src="${finalImgUrl}" alt="${product.title || 'ምርት'}" onerror="this.onerror=null; this.src='${fallbackImg}';" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid #ddd; display: block; margin: 0 auto;"/>
+                <img src="${finalImgUrl}" alt="${product.title || 'ምርት'}" onerror="this.onerror=null; this.src='${fallbackImg}';" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color); display: block; margin: 0 auto;"/>
               </td>
-              <td style="padding: 8px; font-weight: bold; color: #2c3e50;">${product.title || product.name || '-'}</td>
+              <td style="padding: 8px; font-weight: bold;">${product.title || product.name || '-'}</td>
               <td style="padding: 8px;">${product.category || 'ጠቅላላ'}</td>
               <td style="padding: 8px; color: #27ae60; font-weight: bold;">${product.price} ብር</td>
               <td style="padding: 8px;">${statusBadge}</td>
@@ -1826,7 +1824,7 @@
       }
     }
 
-    function filterCulturalProducts(category) {
+    function filterCulturalProducts(category, event) {
       document.querySelectorAll('.cultural-filter-btn').forEach(btn => {
         btn.style.background = 'transparent';
         btn.style.color = '#8B4513';
@@ -1867,7 +1865,6 @@
 
     function closeContactModal() { document.getElementById("contactModal").style.display = "none"; }
 
-    /* ሙሉ በሙሉ የተስተካከለ የ PDF ደረሰኝ ማውረጃ ፈንክሽን */
     async function downloadPDFReceipt() {
       try {
         const { jsPDF } = window.jspdf;
