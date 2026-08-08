@@ -856,7 +856,7 @@
 
     async function sendTelegramNotification(messageText) {
       try {
-        await fetch('https://us-central1-jinka-market-8231a.cloudfunctions.net/sendTelegram', {
+        await fetch('https://us-central1-@jinka_market_bot.cloudfunctions.net/sendTelegram', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: messageText })
