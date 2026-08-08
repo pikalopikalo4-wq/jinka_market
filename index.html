@@ -4,15 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ጂንካ ገበያ | Jinka Market - Online Shopping in Ethiopia</title>
-  <!-- ================= FAVICON / LOGO INTEGRATION ================= -->
-  <!-- 1. ዋና Favicon (ለብራውዘር ታብ) -->
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  
-  <!-- 2. PNG Favicon (ለከፍተኛ ጥራት ብራውዘሮች) -->
-  <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
 
-  <!-- 3. Apple iOS Shortcuts (በስልክ ሆም ስክሪን ሲቀመጥ የሚታይ) -->
+  <!-- FAVICON / LOGO INTEGRATION -->
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
   <link rel="apple-touch-icon" href="logo.png">
+
   <!-- SEO Meta Tags -->
   <meta name="description" content="በጂንካ ገበያ ጥራት ያላቸውን ምርቶች፣ የባህላዊ እና የአካባቢ እቃዎችን በጥራት ይግዙ እና ይሸጡ። የቴሌብር፣ ቻፓ እና የባንክ ክፍያዎችን ይደግፋል።">
   <meta name="keywords" content="Jinka Market, ጂንካ ገበያ, Ethio E-commerce, Telebirr, Chapa, Ethiopian Online Shop, Jinka online shop">
@@ -125,7 +122,7 @@
     .price { font-size: 1.1rem; font-weight: 700; color: var(--primary); }
     .add-cart-btn { background: var(--primary); color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-weight: 600; }
 
-    /* REELS STYLES WITH LIKES & COMMENTS */
+    /* REELS STYLES */
     .reels-container { margin: 30px 0; }
     .reels-scroll { display: flex; gap: 15px; overflow-x: auto; padding-bottom: 10px; scroll-behavior: smooth; }
     .reels-scroll::-webkit-scrollbar { height: 6px; }
@@ -245,7 +242,7 @@
         </button>
 
         <div id="guestNav" style="display: inline-block;">
-          <button class="btn-auth" onclick="openAuthModal('login')">ግባ</button>
+          <button class="btn-auth" onclick="openAuthModal('login')">ሻጭ ከሆኑ የመዝገቡ ግባ</button>
         </div>
 
         <div id="userNav" class="user-profile" style="display: none;">
@@ -318,11 +315,10 @@
         <button class="cat-chip" onclick="filterCategory('popular', event)">ታዋቂ ምርቶች</button>
       </div>
 
-      <!-- Video Reels Section with Likes, Dislikes & Comments -->
+      <!-- Video Reels Section -->
       <div class="reels-container">
         <h3 style="margin-bottom: 15px; color: var(--primary);"><i class="fa-solid fa-circle-play"></i> የምርት ቪዲዮዎች (Video Reels)</h3>
         <div class="reels-scroll" id="reelsScrollContainer">
-          <!-- Dynamically populated or default fallback reels -->
           <div class="reel-card" id="reel-demo-1">
             <video src="https://cdn.imageurlgenerator.com/uploads/1c546d7c-5fd4-46d4-b64b-04eef88815f0.mp4" controls preload="metadata"></video>
             <div class="reel-overlay">
@@ -358,24 +354,6 @@
               </div>
             </div>
           </div>
-
-          <div class="reel-card" id="reel-demo-3">
-            <video src="https://cdn.imageurlgenerator.com/uploads/80c461c9-90d5-485a-a010-4350c5d6975b.mp4" controls preload="metadata"></video>
-            <div class="reel-overlay">
-              <div class="reel-title">የቤት እቃዎች ማስተዋወቂያ</div>
-              <div class="reel-actions">
-                <button class="reel-action-btn" onclick="likeReel('demo-3')">
-                  <i class="fa-solid fa-thumbs-up"></i> <span id="like-count-demo-3">19</span>
-                </button>
-                <button class="reel-action-btn" onclick="dislikeReel('demo-3')">
-                  <i class="fa-solid fa-thumbs-down"></i> <span id="dislike-count-demo-3">2</span>
-                </button>
-                <button class="reel-action-btn" onclick="openReelCommentsModal('demo-3')">
-                  <i class="fa-solid fa-comment"></i> <span id="comment-count-demo-3">3</span>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -386,7 +364,7 @@
       </div>
     </section>
 
-    <!-- 2. ADMIN PRO DASHBOARD -->
+    <!-- 2. ADMIN DASHBOARD -->
     <section id="adminDashboard" class="view-section">
       <h2 style="margin-bottom: 20px; color: var(--primary);">የአድሚን ቁጥጥርና አናሊቲክስ (Admin Analytics Pro)</h2>
       <div class="dashboard-grid">
@@ -602,8 +580,6 @@
         <hr style="margin:10px 0; border:none; border-top:1px dashed #ccc;">
         <p style="margin: 5px 0;"><b>ባንክ ስም፦</b> Commercial Bank Of Ethiopia</p>
         <p style="margin: 5px 0;"><b>የነጋዴ ሂሳብ ቁጥር፦</b> 1000452765377 (Amanuel Tito Shelo)</p>
-        <p style="margin: 5px 0;"><b>ባንክ ስም፦</b> CBE Birr</p>
-        <p style="margin: 5px 0;"><b>የነጋዴ ሂሳብ ቁጥር፦</b> 1000452765377 or 0928664142 (Amanuel Tito Shelo)</p>
         <button type="button" class="auth-btn" style="margin-top: 15px; width: 100%; background: #27ae60;" onclick="showReceiptUploadForm()">የከፈሉበትን ደረሰኝ ለማስገባት እዝህ ጠቅ ያድርጉ</button>
       </div>
 
@@ -647,18 +623,18 @@
       </div>
     </div>
 
-    <!-- Customer Support Section -->
+    <!-- Support Section -->
     <section id="customer-support" class="support-section">
       <div class="support-container">
         <h2 class="support-title">🎧 የደንበኞች ድጋፍ እና እርዳታ</h2>
         <p class="support-subtitle">ጥያቄ፣ አስተያየት ወይም ችግር ካጋጠመዎት በማንኛውም ጊዜ ያናግሩን!</p>
 
         <div class="support-cards">
-          <a href="tel:+251945900829" class="support-card">
+          <a href="tel:+251928664142" class="support-card">
             <div class="support-icon">📞</div>
             <h3>በስልክ ይደውሉልን</h3>
-            <p>ቀጥታ መስመር (ከጠዋቱ 2:00 - ማታ 2:00)</p>
-            <span class="support-link-text">+251 945 900 829</span>
+            <p>ቀጥታ መስመር (Full Time)</p>
+            <span class="support-link-text">+251 928 664 142</span>
           </a>
 
           <a href="https://t.me/jinka_market_bot" target="_blank" class="support-card telegram">
@@ -668,46 +644,12 @@
             <span class="support-link-text">@jinka_market_bot</span>
           </a>
 
-          <a href="mailto:pikalopikalo4@gmail.com" class="support-card">
+          <a href="mailto:jinkamarket@gmail.com" class="support-card">
             <div class="support-icon">✉️</div>
             <h3>በኢሜይል ይጻፉልን</h3>
             <p>ለበለጠ ዝርዝር ጥያቄዎች እና አስተያየቶች</p>
-            <span class="support-link-text">pikalopikalo4@gmail.com</span>
+            <span class="support-link-text">jinkamarket@gmail.com</span>
           </a>
-        </div>
-
-        <div class="faq-section">
-          <h3>ተደጋግመው የሚጠየቁ ጥያቄዎች (FAQ)</h3>
-
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFAQ(this)">
-              <span>❓ ክፍያ እንዴት መፈጸም እችላለሁ?</span>
-              <span class="faq-toggle-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>በ Chapa፣ በ Telebirr፣ በባንክ ሂሳብ ወይም በእጅ በእጅ (Cash on Delivery) በቀላሉ መክፈል ይችላሉ።</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFAQ(this)">
-              <span>❓ ያዘዝኩት ዕቃ በስንት ጊዜ ይደርሰኛል?</span>
-              <span class="faq-toggle-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>በጂንካ ከተማ ውስጥ ያሉ ትዕዛዞች በተመሳሳይ ቀን ወይም በ 24 ሰዓት ውስጥ ይደርሳሉ።</p>
-            </div>
-          </div>
-
-          <div class="faq-item">
-            <button class="faq-question" onclick="toggleFAQ(this)">
-              <span>❓ እቃው ችግር ቢኖረውብኝስ?</span>
-              <span class="faq-toggle-icon">+</span>
-            </button>
-            <div class="faq-answer">
-              <p>ዕቃው በደረሰዎት በ 24 ሰዓት ውስጥ ለደንበኞች ድጋፍ ደውለው በመንገር መቀየር ወይም ገንዘብዎን መመለስ ይችላሉ።</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -715,13 +657,10 @@
   </main>
 
   <!-- Modals and Drawers -->
-
-  <!-- REEL COMMENTS MODAL -->
   <div class="modal-overlay" id="reelCommentsModal">
     <div class="auth-card">
       <button class="close-modal" onclick="closeReelCommentsModal()"><i class="fa-solid fa-xmark"></i></button>
       <h3 style="color:var(--primary); text-align:center; margin-bottom:15px;"><i class="fa-solid fa-comments"></i> የቪዲዮ አስተያየቶች</h3>
-      
       <div id="reelCommentsList" style="max-height:220px; overflow-y:auto; margin-bottom:15px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
         <p style="font-size:0.85rem; color:var(--text-muted); text-align:center;">አስተያየቶች በመጫን ላይ ናቸው...</p>
       </div>
@@ -734,21 +673,16 @@
     </div>
   </div>
 
-  <!-- ABOUT MODAL -->
   <div class="modal-overlay" id="aboutModal">
     <div class="auth-card">
       <button class="close-modal" onclick="closeAboutModal()"><i class="fa-solid fa-xmark"></i></button>
       <h2 style="color:var(--primary); text-align:center;">ስለ ጂንካ ገበያ (About Us)</h2>
       <p style="margin-top:15px; line-height:1.6; color:var(--text-main);">
-        <strong>ጂንካ ገበያ (Jinka Market)</strong> በደቡብ ኢትዮጵያና አካባቢው ያሉ ገዢዎችንና ሻጮችን በቀላሉ የሚያገናኝ ዘመናዊ የኦንላይን ገበያ ማዕከል ነው። 
-      </p>
-      <p style="margin-top:10px; line-height:1.6; color:var(--text-muted);">
-        ግባችን የአካባቢውን የንግድ እንቅስቃሴ በዲጂታል ቴክኖሎጂ ማበልፀግ፣ ጥራት ያላቸውን ምርቶች በተመጣጣኝ ዋጋ ማቅረብ እና አስተማማኝ የክፍያና ማድረሻ ስርዓት መዘርጋት ነው።
+        <strong>ጂንካ ገበያ (Jinka Market)</strong> በደቡብ ኢትዮጵያና አካባቢው ያሉ ገዢዎችንና ሻጮችን በቀላሉ የሚያገናኝ ዘመናዊ የኦንላይን ገበያ ማዕከል ነው።
       </p>
     </div>
   </div>
 
-  <!-- Product Details Modal -->
   <div class="modal-overlay" id="productDetailModal">
     <div class="auth-card">
       <button class="close-modal" onclick="closeProductDetailModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -802,7 +736,6 @@
     <div class="auth-card">
       <button class="close-modal" onclick="closeAuthModal()"><i class="fa-solid fa-xmark"></i></button>
 
-      <!-- LOGIN FORM -->
       <div id="loginForm">
         <h2>ወደ አካውንትዎ ይግቡ</h2>
         <div class="form-group">
@@ -814,15 +747,11 @@
           <input type="password" id="loginPassword" placeholder="******">
         </div>
         <button class="auth-btn" onclick="handleLogin()">ግባ</button>
-        <div style="text-align: right; margin-top: 10px;">
-          <a onclick="switchAuthView('forgot')" style="font-size:0.8rem; color:var(--primary); cursor:pointer;">የይለፍ ቃል ረስተዋል?</a>
-        </div>
         <div class="auth-toggle">
           አካውንት የሎትም? <a onclick="switchAuthView('signup')">አዲስ ይመዝገቡ</a>
         </div>
       </div>
 
-      <!-- SIGNUP FORM -->
       <div id="signupForm" style="display: none;">
         <h2>አዲስ አካውንት ይክፈቱ</h2>
         <div class="form-group">
@@ -851,20 +780,6 @@
         <button class="auth-btn" onclick="handleSignup()">ተመዝገብ</button>
         <div class="auth-toggle">
           አካውንት አለዎት? <a onclick="switchAuthView('login')">ይግቡ</a>
-        </div>
-      </div>
-
-      <!-- FORGOT PASSWORD FORM -->
-      <div id="forgotForm" style="display: none;">
-        <h2>የይለፍ ቃል ለመቀየር</h2>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:15px; text-align:center;">ኢሜይልዎን ያስገቡ የመቀየሪያ ሊንክ እንልክልዎታለን።</p>
-        <div class="form-group">
-          <label>ኢሜይል</label>
-          <input type="email" id="forgotEmail" placeholder="example@gmail.com">
-        </div>
-        <button class="auth-btn" onclick="handleResetPassword()">የይለፍ ቃል ቀይር</button>
-        <div class="auth-toggle">
-          <a onclick="switchAuthView('login')">ወደ መግቢያ ተመለስ</a>
         </div>
       </div>
     </div>
@@ -903,7 +818,6 @@
 
   <!-- JavaScript Core Logic -->
   <script>
-    // Input Validation Helpers
     const Validator = {
       isValidEthiopianPhone: (phone) => {
         if (!phone) return false;
@@ -927,11 +841,6 @@
       }
     };  
 
-    /**
-     * FIREBASE CONFIGURATION & SECURITY NOTE:
-     * Note: Public Web API Key is standard for client-side Web SDKs. 
-     * Security is strictly enforced by Firestore Security Rules on Firebase Console.
-     */
     const firebaseConfig = {
       apiKey: "AIzaSyCwAk45bie0KbuZtcp50zEkMkcY7RPwUp4",
       authDomain: "jinka-market-8231a.firebaseapp.com",
@@ -945,18 +854,15 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
 
-    // Centralized Telegram Notification Function
     async function sendTelegramNotification(messageText) {
       try {
-        const response = await fetch('https://us-central1-jinka-market-8231a.cloudfunctions.net/sendTelegram', {
+        await fetch('https://us-central1-jinka-market-8231a.cloudfunctions.net/sendTelegram', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: messageText })
         });
-        const data = await response.json();
-        console.log('Telegram notification status:', data);
       } catch (error) {
-        console.error('Error sending telegram notification:', error);
+        console.error('Telegram notification error:', error);
       }
     }
 
@@ -993,7 +899,6 @@
       }
     }
 
-    // Hero Image Slider
     let currentSlide = 0;
     function showSlide(index) {
       const slides = document.querySelectorAll('.slide');
@@ -1303,6 +1208,128 @@
       }, 0);
     }
 
+    /* በትክክል የሰለጠነ እና የተስተካከለ ትዕዛዝ መላኪያ ፈንክሽን */
+    async function sendOrderToAdmin() {
+      const nameInput = document.getElementById('customerName');
+      const phoneInput = document.getElementById('customerPhone');
+      const emailInput = document.getElementById('customerEmail');
+      const addressInput = document.getElementById('customerAddress');
+      const noteInput = document.getElementById('customerNote');
+      const urlInput = document.getElementById('receiptImageUrl');
+
+      const name = nameInput ? nameInput.value.trim() : "";
+      const phone = phoneInput ? phoneInput.value.trim() : "";
+      const email = emailInput ? emailInput.value.trim() : "";
+      const address = addressInput ? addressInput.value.trim() : "";
+      const note = noteInput ? noteInput.value.trim() : "";
+      const imageUrl = urlInput ? urlInput.value.trim() : "";
+
+      if (!name || !phone) {
+        alert("እባክዎን ስምዎን እና ስልክ ቁጥርዎን ያስገቡ!");
+        return;
+      }
+
+      const sendBtn = document.getElementById('sendToAdminBtn');
+      if (sendBtn) {
+        sendBtn.disabled = true;
+        sendBtn.innerText = "እየተላከ ነው...";
+      }
+
+      currentCustomerName = name;
+      currentCustomerPhone = phone;
+      currentCustomerAddress = address || 'ጂንካ';
+      currentTxnRef = 'JINKA-' + Date.now().toString().slice(-6);
+
+      const finalReceiptUrl = currentReceiptUrl || imageUrl || 'No Image Link';
+
+      try {
+        await db.collection("orders").add({
+          transactionRef: currentTxnRef,
+          customerName: name,
+          customerPhone: phone,
+          customerEmail: email || (currentUser ? currentUser.email : 'Guest'),
+          customerAddress: currentCustomerAddress,
+          note: note,
+          paymentMethod: currentPaymentMethod,
+          totalAmount: getCartTotal(),
+          cartItems: cart,
+          receiptUrl: finalReceiptUrl,
+          userId: currentUser ? currentUser.uid : 'guest',
+          status: 'Pending',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        sendTelegramNotification(`🛍️ አዲስ ትዕዛዝ ደርሷል!\n\n👤 ደንበኛ: ${name}\n📞 ስልክ: ${phone}\n💰 መጠን: ${getCartTotal()} ETB\n💳 ክፍያ: ${currentPaymentMethod}\n📍 አድራሻ: ${currentCustomerAddress}`);
+
+        alert("🎉 ትዕዛዝዎ በተሳካ ሁኔታ ተልኳል!");
+        document.getElementById('receiptUploadBox').style.display = 'none';
+        document.getElementById('downloadReceiptBox').style.display = 'block';
+
+        cart = [];
+        saveCartToStorage();
+
+      } catch (err) {
+        console.error("Order error:", err);
+        alert("❌ ትዕዛዙን ሲላክ ስህተት አጋጥሟል፦ " + err.message);
+      } finally {
+        if (sendBtn) {
+          sendBtn.disabled = false;
+          sendBtn.innerText = "ለአድሚኑ ላክ";
+        }
+      }
+    }
+
+    /* አዲስ የሻጭ ምርት መመዝገቢያ ፈንክሽን */
+    async function addSellerProduct() {
+      const title = document.getElementById('sellerProdTitle').value.trim();
+      const price = parseFloat(document.getElementById('sellerProdPrice').value);
+      const category = document.getElementById('sellerProdCategory').value;
+      const imageUrl = document.getElementById('sellerProdImageUrl').value.trim();
+      const phone = document.getElementById('sellerPhone').value.trim();
+      const telegram = document.getElementById('sellerTelegram').value.trim();
+      const whatsapp = document.getElementById('sellerWhatsapp').value.trim();
+      const desc = document.getElementById('sellerProdDesc').value.trim();
+
+      if (!title || isNaN(price) || price <= 0) {
+        alert("እባክዎን የምርቱን ስም እና ትክክለኛ ዋጋ ያስገቡ!");
+        return;
+      }
+
+      const btn = document.getElementById('submitSellerProdBtn');
+      btn.disabled = true;
+      btn.innerText = "እየተመዘገበ ነው...";
+
+      try {
+        await db.collection("products").add({
+          title: Validator.sanitizeInput(title),
+          price: price,
+          category: category,
+          imageUrl: imageUrl || 'https://via.placeholder.com/300',
+          sellerPhone: phone,
+          sellerTelegram: telegram,
+          sellerWhatsapp: whatsapp,
+          description: Validator.sanitizeInput(desc),
+          sellerId: currentUser ? currentUser.uid : 'anonymous',
+          status: 'pending',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        alert("🎉 ምርትዎ በተሳካ ሁኔታ ተመዝግቧል። በአድሚን እንደፀደቀ በገበያው ላይ ይታያል!");
+        document.getElementById('sellerProdTitle').value = '';
+        document.getElementById('sellerProdPrice').value = '';
+        document.getElementById('sellerProdImageUrl').value = '';
+        document.getElementById('sellerProdDesc').value = '';
+
+        loadSellerProducts();
+      } catch (err) {
+        console.error("Add product error:", err);
+        alert("❌ ስህተት አጋጥሟል፦ " + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "ምርት መዝግብ";
+      }
+    }
+
     function loadAdminData() {
       db.collection("orders").get().then(snap => {
         let totalRevenue = 0, totalOrders = snap.size;
@@ -1444,7 +1471,6 @@
       });
     }
 
-    /* REELS LOGIC WITH LIKE, DISLIKE & COMMENTS */
     function fetchReels() {
       db.collection("reels").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
         const reelsContainer = document.getElementById('reelsScrollContainer');
@@ -1515,7 +1541,7 @@
       if (!reelId.startsWith('demo-')) {
         db.collection("reels").doc(reelId).update({
           likes: firebase.firestore.FieldValue.increment(1)
-        }).catch(err => console.error("Error updating reel likes:", err));
+        }).catch(err => console.error(err));
       }
     }
 
@@ -1553,7 +1579,7 @@
       if (!reelId.startsWith('demo-')) {
         db.collection("reels").doc(reelId).update({
           dislikes: firebase.firestore.FieldValue.increment(1)
-        }).catch(err => console.error("Error updating reel dislikes:", err));
+        }).catch(err => console.error(err));
       }
     }
 
@@ -1598,10 +1624,7 @@
             </div>
           `;
         });
-      }).catch(err => {
-        console.error("Error loading reel comments:", err);
-        commentsList.innerHTML = `<p style="font-size:0.85rem; color:red;">አስተያየቶችን መጫን አልተቻለም።</p>`;
-      });
+      }).catch(err => console.error(err));
     }
 
     function submitReelComment() {
@@ -1631,12 +1654,9 @@
         userId: currentUser ? currentUser.uid : 'guest',
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(() => {
-        reelRef.update({
-          commentsCount: firebase.firestore.FieldValue.increment(1)
-        });
+        reelRef.update({ commentsCount: firebase.firestore.FieldValue.increment(1) });
         document.getElementById('reelCommentInput').value = '';
         loadReelComments(activeReelIdForComment);
-        
         const countEl = document.getElementById(`comment-count-${activeReelIdForComment}`);
         if (countEl) countEl.innerText = (parseInt(countEl.innerText) || 0) + 1;
       }).catch(err => alert("ስህተት አጋጥሟል፦ " + err.message));
@@ -1647,7 +1667,6 @@
     function switchAuthView(view) {
       document.getElementById('loginForm').style.display = view === 'login' ? 'block' : 'none';
       document.getElementById('signupForm').style.display = view === 'signup' ? 'block' : 'none';
-      document.getElementById('forgotForm').style.display = view === 'forgot' ? 'block' : 'none';
     }
 
     function handleSignup() {
@@ -1679,18 +1698,6 @@
       const password = document.getElementById('loginPassword').value;
       auth.signInWithEmailAndPassword(email, password)
         .then(() => closeAuthModal())
-        .catch(err => alert(err.message));
-    }
-
-    function handleResetPassword() {
-      const email = document.getElementById('forgotEmail').value;
-      if(!email) return alert("እባክዎን ኢሜይልዎን ያስገቡ!");
-      
-      auth.sendPasswordResetEmail(email)
-        .then(() => {
-          alert("የይለፍ ቃል መቀየሪያ ሊንክ ወደ ኢሜይልዎ ተልኳል!");
-          switchAuthView('login');
-        })
         .catch(err => alert(err.message));
     }
 
@@ -1751,45 +1758,28 @@
     }
 
     async function addPromoSlider() {
-      const titleEl = document.getElementById("promoTitle");
-      const subtitleEl = document.getElementById("promoSubtitle");
-      const imageUrlEl = document.getElementById("promoImageUrl");
+      const title = document.getElementById("promoTitle").value.trim();
+      const subtitle = document.getElementById("promoSubtitle").value.trim();
+      const imageUrl = document.getElementById("promoImageUrl").value.trim();
 
-      const title = titleEl ? titleEl.value.trim() : "";
-      const subtitle = subtitleEl ? subtitleEl.value.trim() : "";
-      const imageUrl = imageUrlEl ? imageUrlEl.value.trim() : "";
-
-      if (!title || !imageUrl) {
-        alert("እባክዎን ቢያንስ የስላይደሩን ርዕስ እና የምስል Link ያስገቡ!");
-        return;
-      }
-
-      if (!Validator.isValidImageUrl(imageUrl)) {
-        alert("እባክዎን ትክክለኛ የምስል URL (http/https) ያስገቡ!");
-        return;
-      }
+      if (!title || !imageUrl) return alert("እባክዎን ቢያንስ የስላይደሩን ርዕስ እና የምስል Link ያስገቡ!");
+      if (!Validator.isValidImageUrl(imageUrl)) return alert("እባክዎን ትክክለኛ የምስል URL (http/https) ያስገቡ!");
 
       try {
         await db.collection("promos").add({
           title: Validator.sanitizeInput(title),
           subtitle: Validator.sanitizeInput(subtitle),
           imageUrl: imageUrl,
-          image: imageUrl,
-          image_url: imageUrl,
           isActive: true,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
         alert("🎉 ፕሮሞሽን ስላይደሩ በተሳካ ሁኔታ ተመዝግቧል!");
-
-        titleEl.value = "";
-        if (subtitleEl) subtitleEl.value = "";
-        imageUrlEl.value = "";
-
-        if (typeof fetchPromos === "function") fetchPromos();
-
+        document.getElementById("promoTitle").value = "";
+        document.getElementById("promoSubtitle").value = "";
+        document.getElementById("promoImageUrl").value = "";
+        fetchPromos();
       } catch (error) {
-        console.error("Error adding promo: ", error);
         alert("❌ ስላይደሩን ሲመዘገብ ስህተት አጋጥሟል፦ " + error.message);
       }
     }
@@ -1799,8 +1789,7 @@
       if (!container) return;
 
       try {
-        let query = db.collection("products").where("status", "==", "approved");
-        const snapshot = await query.get();
+        const snapshot = await db.collection("products").where("status", "==", "approved").get();
         container.innerHTML = "";
 
         let culturalProducts = [];
@@ -1811,13 +1800,9 @@
           }
         });
 
-        if (subCategory === 'clothes') {
-          culturalProducts = culturalProducts.filter(p => p.category === 'cultural_clothes');
-        } else if (subCategory === 'crafts') {
-          culturalProducts = culturalProducts.filter(p => p.category === 'cultural_crafts');
-        } else if (subCategory === 'food') {
-          culturalProducts = culturalProducts.filter(p => p.category === 'cultural_food');
-        }
+        if (subCategory === 'clothes') culturalProducts = culturalProducts.filter(p => p.category === 'cultural_clothes');
+        else if (subCategory === 'crafts') culturalProducts = culturalProducts.filter(p => p.category === 'cultural_crafts');
+        else if (subCategory === 'food') culturalProducts = culturalProducts.filter(p => p.category === 'cultural_food');
 
         if (culturalProducts.length === 0) {
           container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 30px; color: #777;"><p>በዚህ ዘርዝር ውስጥ የተመዘገበ የባህላዊ ምርት ለጊዜው የለም።</p></div>`;
@@ -1825,31 +1810,24 @@
         }
 
         culturalProducts.forEach(product => {
-          const sellerPhone = product.sellerPhone || '';
-          const sellerTelegram = product.sellerTelegram || '';
-          const sellerWhatsapp = product.sellerWhatsapp || '';
-
           container.innerHTML += `
             <div class="product-card" style="padding: 10px;">
               <img src="${product.imageUrl || product.image || 'https://via.placeholder.com/200'}" alt="${product.title}" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
               <h4 style="margin: 8px 0; font-size: 1rem;">${product.title}</h4>
               <p style="color:var(--primary); font-weight:bold; margin-bottom: 10px;">${product.price} ብር</p>
-              <button onclick="contactSeller('${product.title}', '${product.price}', '${sellerPhone}', '${sellerTelegram}', '${sellerWhatsapp}')" style="width: 100%; background: #27ae60; color: white; border: none; padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size:0.85rem;">
+              <button onclick="contactSeller('${product.title}', '${product.price}', '${product.sellerPhone || ''}', '${product.sellerTelegram || ''}', '${product.sellerWhatsapp || ''}')" style="width: 100%; background: #27ae60; color: white; border: none; padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size:0.85rem;">
                 📞 ለሻጩ ይደውሉ / ይዘዙ
               </button>
             </div>
           `;
         });
-
       } catch (error) {
-        console.error("Error loading cultural products:", error);
         container.innerHTML = `<p style="grid-column: 1/-1; color: red; text-align: center;">ምርቶቹን መጫን አልተቻለም።</p>`;
       }
     }
 
     function filterCulturalProducts(category) {
-      const buttons = document.querySelectorAll('.cultural-filter-btn');
-      buttons.forEach(btn => {
+      document.querySelectorAll('.cultural-filter-btn').forEach(btn => {
         btn.style.background = 'transparent';
         btn.style.color = '#8B4513';
       });
@@ -1873,9 +1851,7 @@
       const finalPhone = phone && phone.trim() !== "" ? phone.trim() : defaultPhone;
       
       let cleanPhone = finalPhone.replace(/[^0-9]/g, '');
-      if (cleanPhone.startsWith('0')) {
-        cleanPhone = '251' + cleanPhone.substring(1);
-      }
+      if (cleanPhone.startsWith('0')) cleanPhone = '251' + cleanPhone.substring(1);
 
       prodInfo.innerHTML = `ምርት፦ <b>${title}</b> | ዋጋ፦ <b>${price} ብር</b>`;
       callBtn.href = `tel:${finalPhone}`;
@@ -1883,230 +1859,94 @@
       const tgUsername = telegram ? telegram.replace('@', '') : '';
       const msgText = encodeURIComponent(`ሰላም! በጂንካ ገበያ ላይ የተመለከትኩትን "${title}" (ዋጋ፦ ${price} ብር) መግዛት ፈልጌ ነበር።`);
       
-      if (tgUsername) {
-        tgBtn.href = `https://t.me/${tgUsername}?text=${msgText}`;
-      } else {
-        tgBtn.href = `https://t.me/+${cleanPhone}`;
-      }
-
-      const waNum = whatsapp ? whatsapp.replace(/[^0-9]/g, '') : cleanPhone;
-      waBtn.href = `https://wa.me/${waNum}?text=${msgText}`;
+      tgBtn.href = tgUsername ? `https://t.me/${tgUsername}?text=${msgText}` : `https://t.me/+${cleanPhone}`;
+      waBtn.href = `https://wa.me/${whatsapp ? whatsapp.replace(/[^0-9]/g, '') : cleanPhone}?text=${msgText}`;
 
       modal.style.display = "flex";
     }
 
-    function closeContactModal() {
-      document.getElementById("contactModal").style.display = "none";
-    }
+    function closeContactModal() { document.getElementById("contactModal").style.display = "none"; }
 
-    function toggleFAQ(element) {
-      const answer = element.nextElementSibling;
-      const icon = element.querySelector('.faq-toggle-icon');
-
-      if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
-        answer.style.maxHeight = '0px';
-        icon.textContent = '+';
-      } else {
-        document.querySelectorAll('.faq-answer').forEach(el => el.style.maxHeight = '0px');
-        document.querySelectorAll('.faq-toggle-icon').forEach(el => el.textContent = '+');
-        
-        answer.style.maxHeight = answer.scrollHeight + 'px';
-        icon.textContent = '-';
-      }
-    }
-
-    /* COMPLETE & FULLY IMPLEMENTED PDF RECEIPT GENERATOR FUNCTION */
+    /* ሙሉ በሙሉ የተስተካከለ የ PDF ደረሰኝ ማውረጃ ፈንክሽን */
     async function downloadPDFReceipt() {
       try {
         const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+        const doc = new jsPDF('p', 'mm', 'a4');
 
-        const customerName = (typeof currentCustomerName !== 'undefined' && currentCustomerName) ? currentCustomerName : "አልተጠቀሰም";
-        const customerPhone = (typeof currentCustomerPhone !== 'undefined' && currentCustomerPhone) ? currentCustomerPhone : "አልተጠቀሰም";
-        const customerAddress = (typeof currentCustomerAddress !== 'undefined' && currentCustomerAddress) ? currentCustomerAddress : "ጂንካ";
-        const txnRef = (typeof currentTxnRef !== 'undefined' && currentTxnRef) ? currentTxnRef : "N/A";
-        const payMethod = (typeof currentPaymentMethod !== 'undefined' && currentPaymentMethod) ? currentPaymentMethod : "Chapa Payment";
-        const receiptUrl = (typeof currentReceiptUrl !== 'undefined' && currentReceiptUrl !== 'No Image Link') ? currentReceiptUrl : null;
+        const customerName = currentCustomerName || "አልተጠቀሰም";
+        const customerPhone = currentCustomerPhone || "አልተጠቀሰም";
+        const customerAddress = currentCustomerAddress || "ጂንካ";
+        const txnRef = currentTxnRef || "N/A";
+        const payMethod = currentPaymentMethod || "Chapa Payment";
 
         const totalAmountEl = document.getElementById('checkoutTotalAmount');
         let totalAmount = (totalAmountEl && totalAmountEl.innerText.trim() !== '') ? totalAmountEl.innerText.trim() : '0 ETB';
         const dateStr = new Date().toLocaleDateString('en-GB');
 
-        // Header Section
-        doc.setFontSize(22);
-        doc.setTextColor(255, 102, 0); // Primary Brand Color (#FF6600)
-        doc.text("JINKA MARKET - PAYMENT RECEIPT", 20, 22);
+        let currentY = 20;
 
-        doc.setLineWidth(0.8);
+        doc.setFontSize(18);
+        doc.setTextColor(255, 102, 0);
+        doc.text("JINKA MARKET - PAYMENT RECEIPT", 20, currentY);
+
+        currentY += 5;
+        doc.setLineWidth(0.6);
         doc.setDrawColor(200, 200, 200);
-        doc.line(20, 27, 190, 27);
+        doc.line(20, currentY, 190, currentY);
 
-        // Transaction & Customer Information
-        doc.setFontSize(11);
+        currentY += 10;
+        doc.setFontSize(10);
         doc.setTextColor(50, 50, 50);
-        doc.text(`Date of Issue: ${dateStr}`, 20, 38);
-        doc.text(`Transaction Reference: ${txnRef}`, 20, 48);
-        doc.text(`Customer Name: ${customerName}`, 20, 58);
-        doc.text(`Phone Number: ${customerPhone}`, 20, 68);
-        doc.text(`Delivery Address: ${customerAddress}`, 20, 78);
-        doc.text(`Payment Method: ${payMethod}`, 20, 88);
-        
-        doc.setFontSize(14);
-        doc.setTextColor(16, 185, 129); // Success Accent Color
-        doc.text(`Total Paid: ${totalAmount}`, 20, 102);
 
-        // Render Canvas / Uploaded Image if Available
-        if (receiptUrl && receiptUrl.startsWith('data:image')) {
+        const infoList = [
+          `Date of Issue: ${dateStr}`,
+          `Transaction Reference: ${txnRef}`,
+          `Customer Name: ${customerName}`,
+          `Phone Number: ${customerPhone}`,
+          `Delivery Address: ${customerAddress}`,
+          `Payment Method: ${payMethod}`
+        ];
+
+        infoList.forEach(info => {
+          doc.text(info, 20, currentY, { maxWidth: 170 });
+          currentY += 7;
+        });
+
+        currentY += 3;
+        doc.setFontSize(13);
+        doc.setTextColor(16, 185, 129);
+        doc.text(`Total Paid: ${totalAmount}`, 20, currentY);
+
+        if (currentReceiptUrl && currentReceiptUrl.startsWith('data:image')) {
+          currentY += 10;
           doc.setFontSize(10);
           doc.setTextColor(100, 100, 100);
-          doc.text("Attached Payment Confirmation:", 20, 116);
-          doc.addImage(receiptUrl, 'PNG', 20, 122, 150, 100);
+          doc.text("Attached Payment Confirmation:", 20, currentY);
+          currentY += 5;
+          doc.addImage(currentReceiptUrl, 'JPEG', 20, currentY, 150, 100);
         }
 
-        // Footer Section
-        doc.setFontSize(10);
-        doc.setTextColor(150, 150, 150);
-        doc.text("Thank you for choosing Jinka Market! For support: +251 945 900 829", 20, 280);
-
-        // Save PDF file
-        doc.save(`Jinka_Market_Receipt_${Date.now()}.pdf`);
+        doc.save(`Jinka_Market_Receipt_${txnRef}.pdf`);
       } catch (err) {
-        console.error("PDF Generation Error:", err);
-        alert("ደረሰኙን በ PDF ማውረድ አልተቻለም፦ " + err.message);
+        console.error("PDF generation failed:", err);
+        alert("PDF ደረሰኝ ማዘጋጀት አልተቻለም፦ " + err.message);
       }
     }
 
-    // DOM EVENT BINDINGS & INITIALIZATION
-    document.addEventListener('DOMContentLoaded', () => {
+    // Page Load Setup & Event Listeners
+    window.addEventListener('DOMContentLoaded', () => {
       fetchApprovedProducts();
       fetchPromos();
       fetchReels();
-      loadCulturalProducts();
+      loadCulturalProducts('all');
       updateCartUI();
 
-      // Submit Order & Receipt to Admin Button Listener
-      const sendToAdminBtn = document.getElementById('sendToAdminBtn');
-      if (sendToAdminBtn) {
-        sendToAdminBtn.addEventListener('click', async () => {
-          const nameInput = document.getElementById('customerName');
-          const phoneInput = document.getElementById('customerPhone');
-          const addressInput = document.getElementById('customerAddress');
-          const imageUrlInput = document.getElementById('receiptImageUrl');
-          const noteInput = document.getElementById('customerNote');
+      const sendAdminBtn = document.getElementById('sendToAdminBtn');
+      if (sendAdminBtn) sendAdminBtn.onclick = sendOrderToAdmin;
 
-          currentCustomerName = nameInput ? nameInput.value.trim() : '';
-          currentCustomerPhone = phoneInput ? phoneInput.value.trim() : '';
-          currentCustomerAddress = addressInput ? addressInput.value.trim() : '';
-          
-          if (imageUrlInput && imageUrlInput.value.trim() !== '') {
-            currentReceiptUrl = imageUrlInput.value.trim();
-          }
-
-          if (!currentCustomerName || !currentCustomerPhone) {
-            alert("እባክዎን ስምዎን እና ስልክ ቁጥርዎን ያስገቡ!");
-            return;
-          }
-
-          if (!Validator.isValidEthiopianPhone(currentCustomerPhone)) {
-            alert("እባክዎን ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ!");
-            return;
-          }
-
-          currentTxnRef = 'JINKA-' + Math.floor(100000 + Math.random() * 900000);
-          const totalAmount = document.getElementById('checkoutTotalAmount').innerText;
-
-          try {
-            await db.collection("orders").add({
-              transactionRef: currentTxnRef,
-              customerName: Validator.sanitizeInput(currentCustomerName),
-              customerPhone: currentCustomerPhone,
-              customerAddress: Validator.sanitizeInput(currentCustomerAddress),
-              customerNote: noteInput ? Validator.sanitizeInput(noteInput.value) : '',
-              paymentMethod: currentPaymentMethod,
-              totalAmount: totalAmount,
-              receiptUrl: currentReceiptUrl || 'No Image Link',
-              userId: currentUser ? currentUser.uid : 'guest',
-              status: 'Pending',
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-            // Send notification to Admin Telegram Bot
-            const msg = `🛒 *አዲስ ትዕዛዝ ደርሷል!*\n\n` +
-                        `👤 ደንበኛ፦ ${currentCustomerName}\n` +
-                        `📞 ስልክ፦ ${currentCustomerPhone}\n` +
-                        `📍 አድራሻ፦ ${currentCustomerAddress}\n` +
-                        `💰 መጠን፦ ${totalAmount}\n` +
-                        `💳 የክፍያ መንገድ፦ ${currentPaymentMethod}\n` +
-                        `🔢 Ref፦ ${currentTxnRef}`;
-            sendTelegramNotification(msg);
-
-            document.getElementById('receiptUploadBox').style.display = 'none';
-            document.getElementById('downloadReceiptBox').style.display = 'block';
-            alert("🎉 ትዕዛዝዎና የክፍያ መረጃዎ ለአድሚን በተሳካ ሁኔታ ተልኳል!");
-
-            // Clear Cart
-            cart = [];
-            saveCartToStorage();
-
-          } catch (err) {
-            console.error("Order submission error:", err);
-            alert("ትዕዛዙን ሲላክ ስህተት አጋጥሟል፦ " + err.message);
-          }
-        });
-      }
-
-      // Submit Product Registration Button Listener for Sellers
-      const submitSellerProdBtn = document.getElementById('submitSellerProdBtn');
-      if (submitSellerProdBtn) {
-        submitSellerProdBtn.addEventListener('click', async () => {
-          const title = document.getElementById('sellerProdTitle').value.trim();
-          const price = parseFloat(document.getElementById('sellerProdPrice').value);
-          const category = document.getElementById('sellerProdCategory').value;
-          const imageUrl = document.getElementById('sellerProdImageUrl').value.trim();
-          const phone = document.getElementById('sellerPhone').value.trim();
-          const telegram = document.getElementById('sellerTelegram').value.trim();
-          const whatsapp = document.getElementById('sellerWhatsapp').value.trim();
-          const desc = document.getElementById('sellerProdDesc').value.trim();
-
-          if (!title || isNaN(price) || price <= 0) {
-            alert("እባክዎን የምርት ስም እና ትክክለኛ ዋጋ ያስገቡ!");
-            return;
-          }
-
-          if (imageUrl && !Validator.isValidImageUrl(imageUrl)) {
-            alert("እባክዎን ትክክለኛ የምስል URL ያስገቡ!");
-            return;
-          }
-
-          try {
-            await db.collection("products").add({
-              title: Validator.sanitizeInput(title),
-              price: price,
-              category: category,
-              imageUrl: imageUrl,
-              sellerPhone: phone,
-              sellerTelegram: telegram,
-              sellerWhatsapp: whatsapp,
-              description: Validator.sanitizeInput(desc),
-              sellerId: currentUser ? currentUser.uid : 'anonymous',
-              status: 'pending',
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-            alert("🎉 ምርቱ በተሳካ ሁኔታ ተመዝግቧል! በአድሚኑ ከጸደቀ በኋላ በገበያው ላይ ይታያል።");
-            document.getElementById('sellerProdTitle').value = '';
-            document.getElementById('sellerProdPrice').value = '';
-            document.getElementById('sellerProdImageUrl').value = '';
-            document.getElementById('sellerProdDesc').value = '';
-            loadSellerProducts();
-          } catch (err) {
-            console.error("Product submission error:", err);
-            alert("ምርቱን መመዝገብ አልተቻለም፦ " + err.message);
-          }
-        });
-      }
+      const sellerBtn = document.getElementById('submitSellerProdBtn');
+      if (sellerBtn) sellerBtn.onclick = addSellerProduct;
     });
-    
   </script>
 </body>
 </html>
