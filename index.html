@@ -435,41 +435,66 @@
       </div>
     </section>
 
-    <!-- 3. SELLER DASHBOARD VIEW -->
-    <section id="sellerDashboard" class="view-section">
-      <h2 style="margin-bottom: 20px; color: var(--primary);">የሻጭ አካውንት (Seller Dashboard)</h2>
-      
-      <div class="panel-card" style="margin-bottom: 25px;">
-        <h3>አዲስ ምርት መዝግብ (Add New Product)</h3>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
-          <input type="text" id="sellerProdTitle" placeholder="የምርት ስም (ምሳሌ፦ አዲስ ስልክ)">
-          <input type="number" id="sellerProdPrice" placeholder="ዋጋ (በብር)">
-          <select id="sellerProdCategory">
-            <option value="electronics">ኤሌክትሮኒክስ</option>
-            <option value="fashion">ልብሶች እና ጫማዎች</option>
-            <option value="home">የቤት እቃዎች</option>
-            <option value="food">ምግብና እህሎች</option>
-            <optgroup label="🇪🇹 የባህላዊ እና የአካባቢ ምርቶች">
-              <option value="cultural_clothes">ባህላዊ አልባሳት</option>
-              <option value="cultural_crafts">የእጅ ጥበብ እና ቅርሶች</option>
-              <option value="cultural_food">የአካባቢ ቡና እና ቅመማቅመም</option>
-            </optgroup>
-            <option value="general">ሌሎች</option>
-          </select>
-          <input type="url" id="sellerProdImageUrl" placeholder="የምስል Link/URL (https://...)">
-        </div>
+<!-- UPDATE: Seller Dashboard Form with File Upload Option Added -->
+<div class="panel-card" style="margin-bottom: 25px;">
+  <h3>አዲስ ምርት መዝግብ (Add New Product)</h3>
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+    <input type="text" id="sellerProdTitle" placeholder="የምርት ስም (ምሳሌ፦ አዲስ ስልክ)">
+    <input type="number" id="sellerProdPrice" placeholder="ዋጋ (በብር)">
+    <select id="sellerProdCategory">
+      <option value="electronics">ኤሌክትሮኒክስ</option>
+      <option value="fashion">ልብሶች እና ጫማዎች</option>
+      <option value="home">የቤት እቃዎች</option>
+      <option value="food">ምግብና እህሎች</option>
+      <optgroup label="🇪🇹 የባህላዊ እና የአካባቢ ምርቶች">
+        <option value="cultural_clothes">ባህላዊ አልባሳት</option>
+        <option value="cultural_crafts">የእጅ ጥበብ እና ቅርሶች</option>
+        <option value="cultural_food">የአካባቢ ቡና እና ቅመማቅመም</option>
+      </optgroup>
+      <option value="general">ሌሎች</option>
+    </select>
+  </div>
 
-        <h4 style="margin: 15px 0 10px 0; color: #2c3e50; font-size: 0.95rem;">📱 የሻጭ ማገናኛ መረጃዎች (ገዢዎች እንዲያናግሩህ)፦</h4>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 15px;">
-          <input type="tel" id="sellerPhone" placeholder="📞 የስልክ ቁጥር (ምሳሌ፦ 0912345678)">
-          <input type="text" id="sellerTelegram" placeholder="✈️ Telegram Username (ምሳሌ፦ @myusername)">
-          <input type="tel" id="sellerWhatsapp" placeholder="💬 WhatsApp ቁጥር (ምሳሌ፦ 0912345678)">
-        </div>
-
-        <textarea id="sellerProdDesc" placeholder="ስለ ምርቱ አጭር መግለጫ..." style="width: 100%; margin-bottom: 15px; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);"></textarea>
-        <button type="button" id="submitSellerProdBtn" class="auth-btn" style="width: auto; padding: 10px 25px;">ምርት መዝግብ</button>
+  <!-- Updated Image Selection / Upload Section -->
+  <div style="margin-bottom: 15px; background: var(--bg-color); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color);">
+    <label style="display: block; font-weight: bold; margin-bottom: 8px; font-size: 0.9rem;">
+      📷 የምርት ምስል አስገባ (በሊንክ ወይም በፋይል)፦
+    </label>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; align-items: center;">
+      <!-- Option 1: File Upload (New Option) -->
+      <div>
+        <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">ኦፕሽን 1፦ ፎቶ አፕሎድ ያድርጉ (Upload File)</label>
+        <input type="file" id="sellerProdFileInput" accept="image/*" onchange="handleSellerImageUpload(event)" style="width: 100%; padding: 6px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--surface);">
       </div>
+
+      <div style="text-align: center; font-weight: bold; color: var(--text-muted); font-size: 0.85rem;">— ወይም —</div>
+
+      <!-- Option 2: Image URL/Link -->
+      <div>
+        <label style="display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px;">ኦፕሽን 2፦ የምስል Link/URL ያስገቡ</label>
+        <input type="url" id="sellerProdImageUrl" placeholder="https://example.com/image.jpg" style="width: 100%; padding: 8px; border: 1px solid var(--border-color); border-radius: 6px; background: var(--surface);">
+      </div>
+    </div>
+
+    <!-- Image Preview Container -->
+    <div id="sellerImagePreviewContainer" style="margin-top: 10px; display: none; align-items: center; gap: 10px;">
+      <span style="font-size: 0.85rem; color: var(--text-muted);">የተመረጠው ምስል፦</span>
+      <img id="sellerImagePreview" src="" alt="Preview" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-color);">
+    </div>
+  </div>
+
+  <h4 style="margin: 15px 0 10px 0; color: #2c3e50; font-size: 0.95rem;">📱 የሻጭ ማገናኛ መረጃዎች (ገዢዎች እንዲያናግሩህ)፦</h4>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 15px;">
+    <input type="tel" id="sellerPhone" placeholder="📞 የስልክ ቁጥር (ምሳሌ፦ 0912345678)">
+    <input type="text" id="sellerTelegram" placeholder="✈️ Telegram Username (ምሳሌ፦ @myusername)">
+    <input type="tel" id="sellerWhatsapp" placeholder="💬 WhatsApp ቁጥር (ምሳሌ፦ 0912345678)">
+  </div>
+
+  <textarea id="sellerProdDesc" placeholder="ስለ ምርቱ አጭር መግለጫ..." style="width: 100%; margin-bottom: 15px; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);"></textarea>
+  <button type="button" id="submitSellerProdBtn" class="auth-btn" onclick="addSellerProduct()" style="width: auto; padding: 10px 25px;">ምርት መዝግብ</button>
+</div>
 
       <div class="panel-card">
         <h3>የተመዘገቡ ምርቶችህ</h3>
@@ -562,7 +587,7 @@
       <div id="telebirrDetailsBox" style="display: none; background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 5px solid #2ecc71; margin-bottom: 20px; color:#333;">
         <h4 style="margin-top: 0; color: #27ae60;">📱 የ Telebirr ክፍያ መረጃ፦</h4>
         <p style="margin: 5px 0;"><b>የ Telebirr ቁጥር፦</b> 0928664142 (Amanuel Tito Shelo)</p>
-        <p style="margin: 5px 0;"><b>የነጋዴ መለያ (Merchant ID)፦</b> 12345678</p>
+        <p style="margin: 5px 0;"><b>የነጋዴ መለያ (Merchant ID)፦</b></p>
         <p style="margin: 5px 0;">እባክዎን ከ Telebirr ክፍያዎ በኋላ የክፍያውን ደረሰኝ ወደ አድሚኑ ለማስተላለፊያ ይጨምሩ።</p>
         <button type="button" class="auth-btn" style="margin-top: 15px; width: 100%; background: #27ae60;" onclick="showReceiptUploadForm()">የከፈሉበትን ደረሰኝ ለማስገባት እዝህ ጠቅ ያድርጉ!</button>
       </div>
@@ -608,7 +633,7 @@
           <input type="url" id="receiptImageUrl" placeholder="https://example.com/receipt.jpg" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"/>
         </div>
 
-        <button type="button" id="sendToAdminBtn" class="auth-btn" style="width: 100%; background: #27ae60;">ለአድሚኑ ላክ</button>
+        <button type="button" id="sendToAdminBtn" class="auth-btn" style="width: 100%; background: #27ae60;" onclick="sendOrderToAdmin()">ለአድሚኑ ላክ</button>
       </div>
 
       <!-- Download Receipt Box -->
@@ -625,11 +650,11 @@
         <p class="support-subtitle">ጥያቄ፣ አስተያየት ወይም ችግር ካጋጠመዎት በማንኛውም ጊዜ ያናግሩን!</p>
 
         <div class="support-cards">
-          <a href="tel:+251928664142" class="support-card">
+          <a href="tel:+251928664142/+251928514142" class="support-card">
             <div class="support-icon">📞</div>
             <h3>በስልክ ይደውሉልን</h3>
             <p>ቀጥታ መስመር (Full Time)</p>
-            <span class="support-link-text">+251 928 664 142</span>
+            <span class="support-link-text">+251 928 664 142/+251928516641 </span>
           </a>
 
           <a href="https://t.me/jinka_market_bot" target="_blank" class="support-card telegram">
@@ -673,7 +698,32 @@
       <button class="close-modal" onclick="closeAboutModal()"><i class="fa-solid fa-xmark"></i></button>
       <h2 style="color:var(--primary); text-align:center;">ስለ ጂንካ ገበያ (About Us)</h2>
       <p style="margin-top:15px; line-height:1.6; color:var(--text-main);">
-        <strong>ጂንካ ገበያ (Jinka Market)</strong> በደቡብ ኢትዮጵያና አካባቢው ያሉ ገዢዎችንና ሻጮችን በቀላሉ የሚያገናኝ ዘመናዊ የኦንላይን ገበያ ማዕከል ነው።
+        <strong>ጂንካ ገበያ (Jinka Market)</strong> ስለ ጂንካ ገበያ | About Jinka Market
+🎯 ራእያችንና ተልእኳችን (Our Mission & Vision)
+"የደቡብን ንግድ ከዘመናዊው የዲጂታል ዓለም ጋር ማገናኘት!"
+
+ጂንካ ገበያ (Jinka Market) በደቡብ ኢትዮጵያ እና በዙሪያዋ ያሉ የአካባቢው አምራቾች፣ ነጋዴዎች፣ ገበሬዎች እና አነስተኛ የንግድ ተቋማት ምርቶቻቸውን በቀላሉ ሙሉ ኢትዮጵያ ውስጥ ለሚገኙ ደንበኞች የሚያቀርቡበት ዘመናዊ የኤሌክትሮኒክስ ንግድ (E-commerce) መድረክ ነው።
+
+🌟 ለምን ጂንካ ገበያን መረጡ? (Why Choose Us?)
+🛍️ ሰፊ የምርት አማራጮች፡ ከሀገር በቀል ባህላዊ ምርቶች እና የግብርና ውጤቶች እስከ ዘመናዊ የኤሌክትሮኒክስ፣ የልብስ እና የቤት ውስጥ ቁሳቁሶች በአንድ ቦታ ያገኛሉ።
+
+💳 አስተማማኝ እና ፈጣን ክፍያ፡ በ Chapa እና በቴሌብር (telebirr) አማካኝነት ያለምንም ስጋት በሰከንዶች ውስጥ ክፍያዎን በደህና ሁኔታ መፈጸም ይችላሉ።
+
+🚚 ፈጣን ማድረስ (Fast Delivery)፡ የጨረሱትን ትእዛዝ ጥራቱን ጠብቆ በፍጥነት ያሉበት ቦታ ድረስ ለማድረስ ከአካባቢው አስተማማኝ አጋሮች ጋር በትብብር እንሰራለን።
+
+🤝 ለሀገር በቀል ነጋዴዎች ድጋፍ፡ አካባቢያዊ ገበያን በማዘመን የአካባቢውን ኢኮኖሚ ማሳደግ እና ለወጣቶች የዲጂታል ስራ እድል መፍጠር ዋነኛ ግባችን ነው።
+
+🛡️ የታማኝነት እና የጥራት ቃል ኪዳናችን
+በ jinkamarkets.et የምታደርጉት እያንዳንዱ ግዢ እና ሽያጭ በከፍተኛ ደህንነት የተጠበቀ ነው። የደንበኞቻችንን እርካታ እና የታማኝነት ደረጃ ለመጠበቅ የ24/7 የደንበኞች ድጋፍ አገልግሎት አዘጋጅተናል።
+
+📞 ያግኙን (Contact Us)
+ዌብሳይት፡ https://jinkamarkets.et
+
+ኢሜይል፡ info-jinkamarket@gmail.com / support-jinkamarket@gmail.com
+
+የቴሌግራም ቻናል፡ @jinka_market_bot
+
+አድራሻ፡ ጂንካ፣ ደቡብ ኢትዮጵያ
       </p>
     </div>
   </div>
@@ -851,12 +901,11 @@
 
     async function sendTelegramNotification(messageText) {
       try {
-       // ✅ ትክክለኛው የ Firebase Cloud Function URL አጻጻፍ:
-await fetch('https://us-central1-jinka-market-8231a.cloudfunctions.net/sendTelegram', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ message: messageText })
-});
+        await fetch('https://us-central1-jinka-market-8231a.cloudfunctions.net/sendTelegram', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: messageText })
+        });
       } catch (error) {
         console.error('Telegram notification error:', error);
       }
@@ -1204,131 +1253,220 @@ await fetch('https://us-central1-jinka-market-8231a.cloudfunctions.net/sendTeleg
       }, 0);
     }
 
-    async function sendOrderToAdmin() {
-      const nameInput = document.getElementById('customerName');
-      const phoneInput = document.getElementById('customerPhone');
-      const emailInput = document.getElementById('customerEmail');
-      const addressInput = document.getElementById('customerAddress');
-      const noteInput = document.getElementById('customerNote');
-      const urlInput = document.getElementById('receiptImageUrl');
+   // የደንበኛ ትዕዛዝ እና የጋሪ መረጃዎችን አጠቃልሎ ለአድሚን መላኪያ
+async function sendOrderToAdmin() {
+  const nameInput = document.getElementById('customerName');
+  const phoneInput = document.getElementById('customerPhone');
+  const emailInput = document.getElementById('customerEmail');
+  const addressInput = document.getElementById('customerAddress');
+  const noteInput = document.getElementById('customerNote');
+  const urlInput = document.getElementById('receiptImageUrl');
 
-      const name = nameInput ? nameInput.value.trim() : "";
-      const phone = phoneInput ? phoneInput.value.trim() : "";
-      const email = emailInput ? emailInput.value.trim() : "";
-      const address = addressInput ? addressInput.value.trim() : "";
-      const note = noteInput ? noteInput.value.trim() : "";
-      const imageUrl = urlInput ? urlInput.value.trim() : "";
+  const name = nameInput ? nameInput.value.trim() : "";
+  const phone = phoneInput ? phoneInput.value.trim() : "";
+  const email = emailInput ? emailInput.value.trim() : "";
+  const address = addressInput ? addressInput.value.trim() : "";
+  const note = noteInput ? noteInput.value.trim() : "";
+  const imageUrl = urlInput ? urlInput.value.trim() : "";
 
-      if (!name || !phone) {
-        alert("እባክዎን ስምዎን እና ስልክ ቁጥርዎን ያስገቡ!");
-        return;
-      }
+  // 1. መሰረታዊ የፎርም ማረጋገጫ (Validation)
+  if (!name || !phone) {
+    alert("እባክዎን ስምዎን እና ስልክ ቁጥርዎን ያስገቡ!");
+    return;
+  }
 
-      if(!Validator.isValidEthiopianPhone(phone)) {
-        alert("እባክዎን ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ!");
-        return;
-      }
+  if(!Validator.isValidEthiopianPhone(phone)) {
+    alert("እባክዎን ትክክለኛ የኢትዮጵያ ስልክ ቁጥር ያስገቡ!");
+    return;
+  }
 
-      const sendBtn = document.getElementById('sendToAdminBtn');
-      if (sendBtn) {
-        sendBtn.disabled = true;
-        sendBtn.innerText = "እየተላከ ነው...";
-      }
+  if (cart.length === 0) {
+    alert("የግዢ ጋሪዎ ባዶ ነው! እባክዎን አስቀድመው ምርት ይምረጡ።");
+    return;
+  }
 
-      currentCustomerName = name;
-      currentCustomerPhone = phone;
-      currentCustomerAddress = address || 'ጂንካ';
-      currentTxnRef = 'JINKA-' + Date.now().toString().slice(-6);
+  const sendBtn = document.getElementById('sendToAdminBtn');
+  if (sendBtn) {
+    sendBtn.disabled = true;
+    sendBtn.innerText = "እየተላከ ነው...";
+  }
 
-      const finalReceiptUrl = currentReceiptUrl || imageUrl || 'No Image Link';
+  currentCustomerName = name;
+  currentCustomerPhone = phone;
+  currentCustomerAddress = address || 'ጂንካ';
+  currentTxnRef = 'JINKA-' + Date.now().toString().slice(-6);
 
-      try {
-        await db.collection("orders").add({
-          transactionRef: currentTxnRef,
-          customerName: Validator.sanitizeInput(name),
-          customerPhone: phone,
-          customerEmail: email || (currentUser ? currentUser.email : 'Guest'),
-          customerAddress: Validator.sanitizeInput(currentCustomerAddress),
-          note: Validator.sanitizeInput(note),
-          paymentMethod: currentPaymentMethod,
-          totalAmount: getCartTotal(),
-          cartItems: cart,
-          receiptUrl: finalReceiptUrl,
-          userId: currentUser ? currentUser.uid : 'guest',
-          status: 'Pending',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+  const finalReceiptUrl = currentReceiptUrl || imageUrl || 'ምንም ደረሰኝ አልተያያዘም';
 
-        sendTelegramNotification(`🛍️ አዲስ ትዕዛዝ ደርሷል!\n\n👤 ደንበኛ: ${name}\n📞 ስልክ: ${phone}\n💰 መጠን: ${getCartTotal()} ETB\n💳 ክፍያ: ${currentPaymentMethod}\n📍 አድራሻ: ${currentCustomerAddress}`);
+  // 2. በጋሪው ውስጥ ያሉ ምርቶችን ዝርዝር ለአድሚኑ በሚመች መልኩ ማዘጋጀት
+  let orderedProductsList = [];
+  let cartSummaryTextForTelegram = "";
 
-        alert("🎉 ትዕዛዝዎ በተሳካ ሁኔታ ተልኳል!");
-        document.getElementById('receiptUploadBox').style.display = 'none';
-        document.getElementById('downloadReceiptBox').style.display = 'block';
+  cart.forEach((item, index) => {
+    const prod = products.find(p => p.id === item.id);
+    if (prod) {
+      const itemTotal = prod.price * item.qty;
+      orderedProductsList.push({
+        productId: prod.id,
+        title: prod.title,
+        price: prod.price,
+        quantity: item.qty,
+        subTotal: itemTotal
+      });
 
-        cart = [];
-        saveCartToStorage();
-
-      } catch (err) {
-        console.error("Order error:", err);
-        alert("❌ ትዕዛዙን ሲላክ ስህተት አጋጥሟል፦ " + err.message);
-      } finally {
-        if (sendBtn) {
-          sendBtn.disabled = false;
-          sendBtn.innerText = "ለአድሚኑ ላክ";
-        }
-      }
+      cartSummaryTextForTelegram += `\n   ${index + 1}. ${prod.title} - ${item.qty} x ${prod.price} = ${itemTotal} ETB`;
     }
+  });
 
-    async function addSellerProduct() {
-      const title = document.getElementById('sellerProdTitle').value.trim();
-      const price = parseFloat(document.getElementById('sellerProdPrice').value);
-      const category = document.getElementById('sellerProdCategory').value;
-      const imageUrl = document.getElementById('sellerProdImageUrl').value.trim();
-      const phone = document.getElementById('sellerPhone').value.trim();
-      const telegram = document.getElementById('sellerTelegram').value.trim();
-      const whatsapp = document.getElementById('sellerWhatsapp').value.trim();
-      const desc = document.getElementById('sellerProdDesc').value.trim();
+  const totalOrderPrice = getCartTotal();
 
-      if (!title || isNaN(price) || price <= 0) {
-        alert("እባክዎን የምርቱን ስም እና ትክክለኛ ዋጋ ያስገቡ!");
-        return;
-      }
+  try {
+    // 3. መረጃውን ወደ Database (Firestore) መመዝገብ
+    await db.collection("orders").add({
+      transactionRef: currentTxnRef,
+      customerName: Validator.sanitizeInput(name),
+      customerPhone: phone,
+      customerEmail: email || (currentUser ? currentUser.email : 'Guest'),
+      customerAddress: Validator.sanitizeInput(currentCustomerAddress),
+      note: Validator.sanitizeInput(note),
+      paymentMethod: currentPaymentMethod,
+      totalAmount: totalOrderPrice,
+      cartItems: orderedProductsList, // የጋሪው ምርቶች ሙሉ ዝርዝር
+      receiptUrl: finalReceiptUrl,
+      userId: currentUser ? currentUser.uid : 'guest',
+      status: 'Pending',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
 
-      const btn = document.getElementById('submitSellerProdBtn');
-      btn.disabled = true;
-      btn.innerText = "እየተመዘገበ ነው...";
+    // 4. ለአድሚኑ ወደ ቴሌግራም ቦት መልእክት ማስተላለፍ
+    const telegramMessage = 
+`🛍️ **አዲስ የተሟላ ትዕዛዝ ደርሷል!**
 
-      try {
-        await db.collection("products").add({
-          title: Validator.sanitizeInput(title),
-          price: price,
-          category: category,
-          imageUrl: imageUrl || 'https://via.placeholder.com/300',
-          sellerPhone: phone,
-          sellerTelegram: telegram,
-          sellerWhatsapp: whatsapp,
-          description: Validator.sanitizeInput(desc),
-          sellerId: currentUser ? currentUser.uid : 'anonymous',
-          status: 'pending',
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
+👤 **የደንበኛ ስም:** ${name}
+📞 **ስልክ ቁጥር:** ${phone}
+📍 **አድራሻ:** ${currentCustomerAddress}
+✉️ **ኢሜይል:** ${email || 'አልተጠቀሰም'}
+📝 **ማስታወሻ:** ${note || 'የለም'}
 
-        alert("🎉 ምርትዎ በተሳካ ሁኔታ ተመዝግቧል። በአድሚን እንደፀደቀ በገበያው ላይ ይታያል!");
-        document.getElementById('sellerProdTitle').value = '';
-        document.getElementById('sellerProdPrice').value = '';
-        document.getElementById('sellerProdImageUrl').value = '';
-        document.getElementById('sellerProdDesc').value = '';
+📦 **የተገዙ ምርቶች ጋሪ ዝርዝር:**${cartSummaryTextForTelegram}
 
-        loadSellerProducts();
-      } catch (err) {
-        console.error("Add product error:", err);
-        alert("❌ ስህተት አጋጥሟል፦ " + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.innerText = "ምርት መዝግብ";
-      }
+💰 **ጠቅላላ የተከፈለው ዋጋ:** ${totalOrderPrice} ETB
+💳 **የክፍያ ዘዴ:** ${currentPaymentMethod}
+📄 **የደረሰኝ ሊንክ/ፋይል:** ${finalReceiptUrl}`;
+
+    await sendTelegramNotification(telegramMessage);
+
+    alert("🎉 ትዕዛዝዎ እና የጋሪዎ መረጃ ለአድሚኑ በተሳካ ሁኔታ ተልኳል!");
+    document.getElementById('receiptUploadBox').style.display = 'none';
+    document.getElementById('downloadReceiptBox').style.display = 'block';
+
+    // ጋሪውን ማፅዳት
+    cart = [];
+    saveCartToStorage();
+
+  } catch (err) {
+    console.error("Order error:", err);
+    alert("❌ ትዕዛዙን ሲላክ ስህተት አጋጥሟል፦ " + err.message);
+  } finally {
+    if (sendBtn) {
+      sendBtn.disabled = false;
+      sendBtn.innerText = "ለአድሚኑ ላክ";
     }
+  }
+}
 
+
+// 2. የሻጭ ፎቶ አፕሎድ ማስተናገጃ (File to Base64)
+let uploadedSellerImageBase64 = "";
+
+function handleSellerImageUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  if (!file.type.startsWith('image/')) {
+    alert("እባክዎን ትክክለኛ የምስል/ፎቶ ፋይል ይምረጡ!");
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    uploadedSellerImageBase64 = e.target.result;
+    
+    // Preview ለማሳየት
+    const previewImg = document.getElementById('sellerImagePreview');
+    const previewContainer = document.getElementById('sellerImagePreviewContainer');
+    if (previewImg && previewContainer) {
+      previewImg.src = uploadedSellerImageBase64;
+      previewContainer.style.display = 'flex';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+
+// 3. አዲስ ምርት መመዝገቢያ (የተሻሻለ እና አንድ ላይ የተጠቀለለ)
+async function addSellerProduct() {
+  const title = document.getElementById('sellerProdTitle').value.trim();
+  const price = parseFloat(document.getElementById('sellerProdPrice').value);
+  const category = document.getElementById('sellerProdCategory').value;
+  const imageUrlInput = document.getElementById('sellerProdImageUrl').value.trim();
+  const phone = document.getElementById('sellerPhone').value.trim();
+  const telegram = document.getElementById('sellerTelegram').value.trim();
+  const whatsapp = document.getElementById('sellerWhatsapp').value.trim();
+  const desc = document.getElementById('sellerProdDesc').value.trim();
+
+  // በፋይል የተጫነ ወይም በURL የተሰጠ ወይም Default ምስል መምረጫ
+  const finalImageUrl = uploadedSellerImageBase64 || imageUrlInput || 'https://via.placeholder.com/300';
+
+  if (!title || isNaN(price) || price <= 0) {
+    alert("እባክዎን የምርቱን ስም እና ትክክለኛ ዋጋ ያስገቡ!");
+    return;
+  }
+
+  const btn = document.getElementById('submitSellerProdBtn');
+  btn.disabled = true;
+  btn.innerText = "እየተመዘገበ ነው...";
+
+  try {
+    await db.collection("products").add({
+      title: Validator.sanitizeInput(title),
+      price: price,
+      category: category,
+      imageUrl: finalImageUrl,
+      sellerPhone: phone,
+      sellerTelegram: telegram,
+      sellerWhatsapp: whatsapp,
+      description: Validator.sanitizeInput(desc),
+      sellerId: currentUser ? currentUser.uid : 'anonymous',
+      status: 'pending',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    alert("🎉 ምርትዎ በተሳካ ሁኔታ ተመዝግቧል። በአድሚን እንደፀደቀ በገበያው ላይ ይታያል!");
+    
+    // Form ማፅጃ
+    document.getElementById('sellerProdTitle').value = '';
+    document.getElementById('sellerProdPrice').value = '';
+    document.getElementById('sellerProdImageUrl').value = '';
+    
+    const fileInput = document.getElementById('sellerProdFileInput');
+    if (fileInput) fileInput.value = '';
+    
+    document.getElementById('sellerProdDesc').value = '';
+    uploadedSellerImageBase64 = "";
+    
+    const previewContainer = document.getElementById('sellerImagePreviewContainer');
+    if (previewContainer) previewContainer.style.display = 'none';
+
+    loadSellerProducts();
+  } catch (err) {
+    console.error("Add product error:", err);
+    alert("❌ ስህተት አጋጥሟል፦ " + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerText = "ምርት መዝግብ";
+  }
+}
     function loadAdminData() {
       db.collection("orders").get().then(snap => {
         let totalRevenue = 0, totalOrders = snap.size;
@@ -1375,24 +1513,40 @@ await fetch('https://us-central1-jinka-market-8231a.cloudfunctions.net/sendTeleg
     }
 
     function fetchOrdersForAdmin() {
-      db.collection("orders").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
-        let html = "";
-        snapshot.forEach((doc) => {
-          const order = doc.data();
-          html += `
-            <div style="border: 1px solid var(--border-color); padding: 12px; margin-bottom: 10px; border-radius: 8px; background: var(--surface);">
-              <p><b>የትራንዛክሽን ቁጥር፦</b> ${order.transactionRef || 'N/A'}</p>
-              <p><b>የተከፈለው ዋጋ፦</b> ${order.totalAmount || 0} ETB</p>
-              <p><b>ሁኔታ፦</b> <span style="color: orange;">${order.status || 'Pending'}</span></p>
-              ${order.receiptUrl ? `<p><b>ደረሰኝ፦</b> <a href="${order.receiptUrl}" target="_blank" style="color:var(--primary);">ፎቶውን ይመልከቱ</a></p>` : ''}
-            </div>
-          `;
-        });
-        const ordersContainer = document.getElementById("adminOrdersList");
-        if(ordersContainer) ordersContainer.innerHTML = html || "<p>ምንም ደረሰኝ አልተገኘም።</p>";
-      });
-    }
+  db.collection("orders").orderBy("createdAt", "desc").onSnapshot((snapshot) => {
+    let html = "";
+    snapshot.forEach((doc) => {
+      const order = doc.data();
+      
+      // በጋሪ የተገዙ ምርቶችን ማዘገጃ
+      let itemsHtml = "";
+      if (order.cartItems && Array.isArray(order.cartItems)) {
+        itemsHtml = "<ul>" + order.cartItems.map(item => 
+          `<li><b>${item.title}</b> - ${item.quantity} ፒስ (x ${item.price} ብር) = ${item.subTotal} ETB</li>`
+        ).join('') + "</ul>";
+      }
 
+      html += `
+        <div style="border: 1px solid var(--border-color); padding: 15px; margin-bottom: 12px; border-radius: 8px; background: var(--surface);">
+          <p><b>ትራንዛክሽን ቁጥር፦</b> ${order.transactionRef || 'N/A'}</p>
+          <p><b>👤 ደንበኛ፦</b> ${order.customerName} | <b>📞 ስልክ፦</b> <a href="tel:${order.customerPhone}">${order.customerPhone}</a></p>
+          <p><b>📍 አድራሻ፦</b> ${order.customerAddress || 'N/A'}</p>
+          <p><b>💳 ክፍያ ዘዴ፦</b> ${order.paymentMethod}</p>
+          <div style="background: var(--bg-color); padding: 8px; border-radius: 6px; margin: 8px 0;">
+            <b>🛒 የተገዙ ምርቶች ጋሪ፦</b>
+            ${itemsHtml || '<p>ምንም ዝርዝር አልተገኘም</p>'}
+          </div>
+          <p><b>💰 ጠቅላላ ዋጋ፦</b> <span style="color:#10b981; font-weight:bold;">${order.totalAmount || 0} ETB</span></p>
+          <p><b>ሁኔታ፦</b> <span class="status-badge status-pending">${order.status || 'Pending'}</span></p>
+          ${order.receiptUrl ? `<p><b>📄 ደረሰኝ፦</b> <a href="${order.receiptUrl}" target="_blank" style="color:var(--primary); font-weight:bold;">ደረሰኙን/ፎቶውን ለመመልከት እዚህ ይጫኑ</a></p>` : ''}
+        </div>
+      `;
+    });
+    
+    const ordersContainer = document.getElementById("adminOrdersList");
+    if(ordersContainer) ordersContainer.innerHTML = html || "<p>ምንም ደረሰኝ አልተገኘም።</p>";
+  });
+}
     function approveProduct(prodId) {
       db.collection("products").doc(prodId).update({ status: "approved" }).then(() => {
         alert("ምርቱ ፅድቋል! አሁን በገበያው ላይ ይታያል።");
