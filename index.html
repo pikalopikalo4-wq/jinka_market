@@ -1861,3 +1861,132 @@
     } catch (error) {
         console.error("ቪዲዮዎችን በመጫን ላይ ስህተት ተፈጥሯል:", error);
         container.innerHTML = '<p style="color:var(--text-muted);">ቪዲዮዎችን መጫን አልተቻለም።</
+          }
+}
+     // ፉንክሽኑን መጥራት
+loadVideoReels();
+// የቅጽ ማሳያዎችን ለመቀያየር (Login, Signup, Forgot Password)
+    function switchAuthView(view) {
+      const loginForm = document.getElementById('loginForm');
+      const signupForm = document.getElementById('signupForm');
+      const forgotForm = document.getElementById('forgotPasswordForm');
+
+      if (loginForm) loginForm.style.display = (view === 'login') ? 'block' : 'none';
+      if (signupForm) signupForm.style.display = (view === 'signup') ? 'block' : 'none';
+      if (forgotForm) forgotForm.style.display = (view === 'forgotPassword') ? 'block' : 'none';
+    }
+
+    // የይለፍ ቃል የማደስ ጥያቄን በ Firebase በኩል ለመላክ
+    function handleForgotPassword() {
+      const email = document.getElementById('forgotEmail').value.trim();
+      
+      if (!email) {
+        alert("እባክዎን ኢሜይል አድራሻዎን ያስገቡ!");
+        return;
+      }
+
+      auth.sendPasswordResetEmail(email)
+        .then(() => {
+          alert("የይለፍ ቃል መቀየሪያ ሊንክ ወደ ኢሜይልዎ ተልኳል! እባክዎን የኢሜይል ሳጥንዎን (Inbox ወይም Spam) ይዩ።");
+          document.getElementById('forgotEmail').value = '';
+          switchAuthView('login');
+        })
+        .catch((error) => {
+          console.error("Password reset error:", error);
+          let errorMessage = "ስህተት አጋጥሟል፦ ";
+          if (error.code === 'auth/user-not-found') {
+            errorMessage += "በዚህ ኢሜይል የተመዘገበ ተጠቃሚ አልተገኘም።";
+          } else if (error.code === 'auth/invalid-email') {
+            errorMessage += "ያስገቡት ኢሜይል ትክክለኛ አይደለም።";
+          } else {
+            errorMessage += error.message;
+          }
+          alert(errorMessage);
+        });
+    }    
+});
+    // የባህላዊ እና የአካባቢ ምርቶችን ከ Firebase አምጥቶ የሚያሳይ ፋንክሽን
+function loadCulturalProducts(category = 'all') {
+    const container = document.getElementById('culturalProductsContainer');
+    if (!container) return;
+
+    // በመጫን ላይ እያለ የሚታይ ጽሁፍ
+    container.innerHTML = '<p style="text-align: center; color: #888; grid-column: 1/-1;">የባህላዊ ምርቶች በመጫን ላይ ናቸው...</p>';
+
+    // እዚህጋ db የሚለው የፋየርቤዝ ኢንስታንስዎ ስም መሆኑን ያረጋግጡ
+    let query = db.collection('products'); // ወይም የሰጡት የኮሌክሽን ስም ከሆነ ይቀይሩት
+
+    // ማጣሪያውን ማስተካከል
+    if (category === 'cultural_clothes') {
+        query = query.where('category', '==', 'cultural_clothes');
+    } else if (category === 'cultural_crafts') {
+        query = query.where('category', '==', 'cultural_crafts');
+    } else if (category === 'cultural_food') {
+        query = query.where('category', '==', 'cultural_food');
+    } else {
+        // "ሁሉም" ሲመረጥ ወይም ሌሎች የባህርይ ምርቶች ሲጠየቁ
+        query = query.where('category', 'in', ['cultural_clothes', 'cultural_crafts', 'cultural_food']);
+    }
+
+    query.get().then((querySnapshot) => {
+        container.innerHTML = ''; // የነበረውን ማጽዳት
+        
+        if (querySnapshot.empty) {
+            container.innerHTML = '<p style="text-align: center; color: #888; grid-column: 1/-1;">በዚህ ምድብ ውስጥ እስካሁን የተመዘገቡ ምርቶች የሉም።</p>';
+            return;
+        }
+
+        querySnapshot.forEach((doc) => {
+            const product = doc.data();
+            const productId = doc.id;
+
+            // የምርት ካርድ ዲዛይን መፍጠር
+            const productCard = document.createElement('div');
+            productCard.className = 'product-card';
+            productCard.style.cssText = 'background: white; border-radius: 12px; padding: 12px; border: 1px solid #e2d2c3; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;';
+
+            productCard.innerHTML = `
+                <div>
+                    <div style="background: #f4e8dc; height: 140px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 10px; overflow: hidden;">
+                        ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">` : '👘'}
+                    </div>
+                    <h3 style="font-size: 1rem; color: #333; margin: 0 0 5px 0;">${product.name || 'ባህላዊ ምርት'}</h3>
+                    <p style="color: #8B4513; font-weight: bold; margin: 0 0 10px 0; font-size: 0.95rem;">${product.price ? product.price + ' ብር' : ''}</p>
+                </div>
+                <button onclick="addToCart('${productId}')" style="background: #8B4513; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; width: 100%;">ወደ 🛒 ግዢ ጨምር</button>
+            `;
+
+            container.appendChild(productCard);
+        });
+    }).catch((error) => {
+        console.error("ፌርቤዝ ላይ ስህተት ተፈጥሯል:", error);
+        container.innerHTML = '<p style="text-align: center; color: red; grid-column: 1/-1;">ምርቶቹን መጫን አልተቻለም።</p>';
+    });
+}
+
+// በ HTML ላይ ያሉት ቺፖች (Buttons) የሚጠሩት ዋናው የማጣሪያ ፋንክሽን
+function filterCategory(category, event) {
+    // የቺፖችን አክቲቭ (Active) ስቴት መቀየር
+    const chips = document.querySelectorAll('.cat-chip');
+    chips.forEach(chip => chip.classList.remove('active'));
+    
+    if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+    }
+
+    // ምድቡ የባህላዊ ምርቶች ከሆነ የባህላዊ ምርቶች ኮንቴይነር ላይ ዳታውን መጫን
+    if (category === 'all' || category === 'cultural_clothes' || category === 'cultural_crafts' || category === 'cultural_food') {
+        loadCulturalProducts(category);
+    } else {
+        // ለሌሎች ምርቶች (እንደ ኤሌክትሮኒክስ፣ ልብሶች, ወዘተ) የነበሩዎትን የኮድ ፋንክሽኖች እዚህጋ መጥራት ይችላሉ
+        console.log("ሌላ ምድብ ተመረጠ:", category);
+    }
+}
+
+// ዌብሳይቱ ሲከፈት በራስ-ሰር የባህላዊ ምርቶችን እንዲጭን ማድረግ
+document.addEventListener('DOMContentLoaded', () => {
+    loadCulturalProducts('all');
+});
+  </script>
+</body>
+</html>
