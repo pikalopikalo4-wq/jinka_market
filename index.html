@@ -268,12 +268,7 @@
           <span class="dot active" onclick="setSlide(0)"></span>
         </div>
       </div>
-
-<<<<<<< Updated upstream
-     <!-- LOCAL CULTURAL CATEGORY -->
-=======
-   <!-- LOCAL CULTURAL CATEGORY -->
->>>>>>> Stashed changes
+<!-- LOCAL CULTURAL CATEGORY -->
       <section id="culturalProductsSection" style="margin: 35px 0; padding: 20px; background: linear-gradient(135deg, #fff9f0 0%, #fff0dc 100%); border-radius: 16px; border: 1px solid #f3d1a8;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
           <div>
@@ -284,45 +279,12 @@
               የጂንካ እና የደቡብ ኦሞ ውብ ባህላዊ አልባሳት፣ የእጅ ጥበቦች እና የአካባቢ ምርቶች
             </p>
           </div>
-          
-          <div style="display: flex; gap: 8px; overflow-x: auto; padding-bottom: 5px;">
-            <button onclick="filterCulturalProducts('all', event)" class="cultural-filter-btn active" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: #8B4513; color: white; cursor: pointer; font-size: 0.85rem;">ሁሉም</button>
-            <button onclick="filterCulturalProducts('clothes', event)" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">ባህላዊ አልባሳት</button>
-            <button onclick="filterCulturalProducts('crafts', event)" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">የእጅ ጥበብ / ቅርስ</button>
-            <button onclick="filterCulturalProducts('food', event)" class="cultural-filter-btn" style="padding: 6px 14px; border-radius: 20px; border: 1px solid #8B4513; background: transparent; color: #8B4513; cursor: pointer; font-size: 0.85rem;">የአካባቢ እህሎች እና ቡና</button>
-          </div>
         </div>
 
-        <!-- የተሞላ የናሙና ምርቶች ማሳያ (ለአድሰንስ ግምገማ እንዲመች) -->
         <div id="culturalProductsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px;">
-          
-          <!-- ናሙና ምርት 1 -->
-          <div class="product-card" style="background: white; border-radius: 12px; padding: 12px; border: 1px solid #e2d2c3; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            <div style="background: #f4e8dc; height: 140px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 10px;">👘</div>
-            <h3 style="font-size: 1rem; color: #333; margin: 0 0 5px 0;">የደቡብ ኦሞ ባህላዊ አልባሳት</h3>
-            <p style="color: #8B4513; font-weight: bold; margin: 0 0 10px 0; font-size: 0.95rem;">1,800 ብር</p>
-            <span style="background: #fff0dc; color: #8B4513; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem;">ባህላዊ አልባሳት</span>
-          </div>
-
-          <!-- ናሙና ምርት 2 -->
-          <div class="product-card" style="background: white; border-radius: 12px; padding: 12px; border: 1px solid #e2d2c3; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            <div style="background: #f4e8dc; height: 140px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 10px;">🏺</div>
-            <h3 style="font-size: 1rem; color: #333; margin: 0 0 5px 0;">የእጅ ጥበብ የሸክላ ስራዎች</h3>
-            <p style="color: #8B4513; font-weight: bold; margin: 0 0 10px 0; font-size: 0.95rem;">950 ብር</p>
-            <span style="background: #fff0dc; color: #8B4513; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem;">የእጅ ጥበብ / ቅርስ</span>
-          </div>
-
-          <!-- ናሙና ምርት 3 -->
-          <div class="product-card" style="background: white; border-radius: 12px; padding: 12px; border: 1px solid #e2d2c3; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-            <div style="background: #f4e8dc; height: 140px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 10px;">☕</div>
-            <h3 style="font-size: 1rem; color: #333; margin: 0 0 5px 0;">ኦርጋኒክ የጂንካ ቡና</h3>
-            <p style="color: #8B4513; font-weight: bold; margin: 0 0 10px 0; font-size: 0.95rem;">650 ብር</p>
-            <span style="background: #fff0dc; color: #8B4513; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem;">የአካባቢ እህሎች እና ቡና</span>
-          </div>
-
+          <p style="text-align: center; color: #888; grid-column: 1/-1;">የባህላዊ ምርቶች በመጫን ላይ ናቸው...</p>
         </div>
       </section>
-
       <!-- Category Filter Pills -->
       <div class="category-scroll" id="categoryList">
         <button class="cat-chip active" onclick="filterCategory('all', event)">ሁሉም</button>
