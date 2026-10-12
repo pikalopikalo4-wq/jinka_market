@@ -268,23 +268,6 @@
           <span class="dot active" onclick="setSlide(0)"></span>
         </div>
       </div>
-<!-- LOCAL CULTURAL CATEGORY -->
-      <section id="culturalProductsSection" style="margin: 35px 0; padding: 20px; background: linear-gradient(135deg, #fff9f0 0%, #fff0dc 100%); border-radius: 16px; border: 1px solid #f3d1a8;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h2 style="color: #8B4513; margin: 0; font-size: 1.5rem; display: flex; align-items: center; gap: 8px;">
-              <span>🇪🇹</span> የባህላዊ እና የአካባቢ ምርቶች
-            </h2>
-            <p style="color: #6e4726; margin: 5px 0 0 0; font-size: 0.9rem;">
-              የጂንካ እና የደቡብ ኦሞ ውብ ባህላዊ አልባሳት፣ የእጅ ጥበቦች እና የአካባቢ ምርቶች
-            </p>
-          </div>
-        </div>
-
-        <div id="culturalProductsContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px;">
-          <p style="text-align: center; color: #888; grid-column: 1/-1;">የባህላዊ ምርቶች በመጫን ላይ ናቸው...</p>
-        </div>
-      </section>
       <!-- Category Filter Pills -->
       <div class="category-scroll" id="categoryList">
         <button class="cat-chip active" onclick="filterCategory('all', event)">ሁሉም</button>
@@ -1963,77 +1946,6 @@ function loadCulturalProducts(category = 'all') {
         container.innerHTML = '<p style="text-align: center; color: red; grid-column: 1/-1;">ምርቶቹን መጫን አልተቻለም።</p>';
     });
 }
-
-// በ HTML ላይ ያሉት ቺፖች (Buttons) የሚጠሩት ዋናው የማጣሪያ ፋንክሽን
-function filterCategory(category, event) {
-    // የቺፖችን አክቲቭ (Active) ስቴት መቀየር
-    const chips = document.querySelectorAll('.cat-chip');
-    chips.forEach(chip => chip.classList.remove('active'));
-    
-    if (event && event.currentTarget) {
-        event.currentTarget.classList.add('active');
-    }
-
-    // ምድቡ የባህላዊ ምርቶች ከሆነ የባህላዊ ምርቶች ኮንቴይነር ላይ ዳታውን መጫን
-    if (category === 'all' || category === 'cultural_clothes' || category === 'cultural_crafts' || category === 'cultural_food') {
-        loadCulturalProducts(category);
-    } else {
-        // ለሌሎች ምርቶች (እንደ ኤሌክትሮኒክስ፣ ልብሶች, ወዘተ) የነበሩዎትን የኮድ ፋንክሽኖች እዚህጋ መጥራት ይችላሉ
-        console.log("ሌላ ምድብ ተመረጠ:", category);
-    }
-}
-
-// ዌብሳይቱ ሲከፈት በራስ-ሰር የባህላዊ ምርቶችን እንዲጭን ማድረግ
-document.addEventListener('DOMContentLoaded', () => {
-    loadCulturalProducts('all');
-});
-    // የባህላዊ ምርቶችን ብቻ ከፋየርቤዝ (cultural_products collection) ለብቻው አምጥቶ የሚያሳይ ፋንክሽን
-async function loadCulturalProductsOnly() {
-    const container = document.getElementById('culturalProductsContainer');
-    if (!container) return;
-
-    // ምርቶቹ እስኪመጡ ድረስ የሚታይ የመጫኛ ጽሁፍ
-    container.innerHTML = '<p style="text-align: center; color: #888; grid-column: 1/-1;">የባህላዊ ምርቶች በመጫን ላይ ናቸው...</p>';
-
-    try {
-        // ከሌሎች ምርቶች ፈጽሞ በማይቀላቀለው በራሱ በ "cultural_products" ኮሌክሽን ላይ ብቻ ጥያቄ እናቀርባለን
-        const snapshot = await db.collection('cultural_products').get();
-
-        if (snapshot.empty) {
-            container.innerHTML = '<p style="text-align: center; color: #888; grid-column: 1/-1;">እስካሁን የተመዘገቡ ባህላዊ ምርቶች የሉም</p>';
-            return;
-        }
-
-        container.innerHTML = ''; // የሎዲንግ ጽሁፉን እናጠፋለን
-
-        snapshot.forEach(doc => {
-            const product = doc.data();
-            const productId = doc.id;
-
-            // ለእያንዳንዱ ባህላዊ ምርት የራሱ የሆነ የካርድ ዲዛይን እንሰራለን
-            container.innerHTML += `
-                <div class="product-card" style="background: white; border-radius: 12px; padding: 12px; border: 1px solid #e2d2c3; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <div style="background: #f4e8dc; height: 140px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin-bottom: 10px; overflow: hidden;">
-                            ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">` : '👘'}
-                        </div>
-                        <h3 style="font-size: 1rem; color: #333; margin: 0 0 5px 0;">${product.name || 'ባህላዊ ምርት'}</h3>
-                        <p style="color: #8B4513; font-weight: bold; margin: 0 0 10px 0; font-size: 0.95rem;">${product.price ? product.price + ' ብር' : ''}</p>
-                    </div>
-                    <button onclick="addToCart('${productId}')" style="background: #8B4513; color: white; border: none; padding: 8px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; width: 100%;">ወደ 🛒 ግዢ ጨምር</button>
-                </div>
-            `;
-        });
-    } catch (error) {
-        console.error("ባህላዊ ምርቶችን በመጫን ላይ ስህተት ተፈጥሯል:", error);
-        container.innerHTML = '<p style="text-align: center; color: red; grid-column: 1/-1;">ምርቶቹን መጫን አልተቻለም።</p>';
-    }
-}
-
-// ዌብሳይቱ ሲከፈት ይህ ፋንክሽን በራሱ እንዲሰራ እንጠራዋለን
-window.addEventListener('DOMContentLoaded', () => {
-    loadCulturalProductsOnly();
-});
   </script>
 </body>
 </html>
